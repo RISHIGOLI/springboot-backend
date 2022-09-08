@@ -19,7 +19,7 @@ import com.mycode.blog.entities.User;
 import com.mycode.blog.exceptions.ApiException;
 import com.mycode.blog.payloads.JwtAuthRequest;
 import com.mycode.blog.payloads.JwtAuthResponse;
-import com.mycode.blog.payloads.UserDto;
+
 import com.mycode.blog.security.JwtTokenHelper;
 import com.mycode.blog.services.UserService;
 
@@ -70,16 +70,16 @@ public class AuthController {
 	
 	
 	//register new user api
-	@PostMapping("/register")
-	public ResponseEntity<UserDto> registerUser(@RequestBody UserDto userDto)
-	{
-		UserDto registeredUser = this.userService.registerNewUser(userDto);
-		return new ResponseEntity<UserDto>(registeredUser, HttpStatus.CREATED);
-	}
+//	@PostMapping("/register")
+//	public ResponseEntity<UserDto> registerUser(@RequestBody UserDto userDto)
+//	{
+//		UserDto registeredUser = this.userService.registerNewUser(userDto);
+//		return new ResponseEntity<UserDto>(registeredUser, HttpStatus.CREATED);
+//	}
 	
 	
 	//register new user api
-		@PostMapping("/registerNew")
+		@PostMapping("/register")
 		public ResponseEntity<ApiResponse<User>> registerNew(@RequestBody User userDto)
 		{
 			ApiResponse<User> registeredUser = this.userService.registerNewUser_2(userDto);

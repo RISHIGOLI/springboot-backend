@@ -29,7 +29,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name="users")
+@Table(name="registered_users")
 @NoArgsConstructor
 @Getter
 @Setter
@@ -39,30 +39,34 @@ public class User implements UserDetails{
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
 	
-	@Column(name="user_name", nullable = false, length=100)
-	private String name;
+	@Column(name="first_name", nullable = false, length=100)
+	private String firstName;
+	
+	@Column(name="last_name", nullable = false, length=100)
+	private String lastName;
+	
+	@Column(name="date_of_birth", nullable=false)
+	private String dob;
 	
 	@Column(unique = true)
 	private String email;
 	
+	@Column(name="password", nullable=false)
 	private String password;
 	
-	private String about;
+	@Column(name="address")
+	private String address;
 	
-	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	private List<Post> posts = new ArrayList<>();
+	@Column(name="gender")
+	private String gender;
 	
-	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinTable(name="user_role", 
-	joinColumns=@JoinColumn(name="user", referencedColumnName = "id"),
-	inverseJoinColumns = @JoinColumn(name="role",referencedColumnName = "id"))			
-	private Set<Role> roles = new HashSet<>();
+	@Column(name="mobile_no")
+	private String mobile;
+	
 
-	@Override
-	public Collection<? extends GrantedAuthority> getAuthorities() {
-		List<SimpleGrantedAuthority> authorities = this.roles.stream().map((role)-> new SimpleGrantedAuthority(role.getName())).collect(Collectors.toList());
-		return authorities;
-	}
+	
+	
+
 
 	@Override
 	public String getUsername() {
@@ -92,6 +96,12 @@ public class User implements UserDetails{
 	public boolean isEnabled() {
 		// TODO Auto-generated method stub
 		return true;
+	}
+
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 }
