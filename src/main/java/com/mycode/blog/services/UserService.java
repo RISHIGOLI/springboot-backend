@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.mycode.blog.entities.ApiResponse;
 import com.mycode.blog.entities.User;
 import com.mycode.blog.payloads.UserDto;
 
@@ -21,5 +22,7 @@ public interface UserService {
 	 List<UserDto> getAllUsers();
 	 
 	 void deleteUser(Integer userId);
+	 
+	 ApiResponse<User> registerNewUser_2(User user);
 	 
 }

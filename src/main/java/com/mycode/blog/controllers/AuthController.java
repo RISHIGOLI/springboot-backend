@@ -14,12 +14,16 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.mycode.blog.entities.ApiResponse;
+import com.mycode.blog.entities.User;
 import com.mycode.blog.exceptions.ApiException;
 import com.mycode.blog.payloads.JwtAuthRequest;
 import com.mycode.blog.payloads.JwtAuthResponse;
 import com.mycode.blog.payloads.UserDto;
 import com.mycode.blog.security.JwtTokenHelper;
 import com.mycode.blog.services.UserService;
+
+import io.swagger.models.Response;
 
 @RestController
 @RequestMapping("/api/v1/auth/")
@@ -72,4 +76,15 @@ public class AuthController {
 		UserDto registeredUser = this.userService.registerNewUser(userDto);
 		return new ResponseEntity<UserDto>(registeredUser, HttpStatus.CREATED);
 	}
+	
+	
+	//register new user api
+		@PostMapping("/registerNew")
+		public ResponseEntity<ApiResponse<User>> registerNew(@RequestBody User userDto)
+		{
+			ApiResponse<User> registeredUser = this.userService.registerNewUser_2(userDto);
+			if(registeredUser.isStatus())
+			return new ResponseEntity<ApiResponse<User>>(registeredUser, HttpStatus.CREATED);
+			else return new ResponseEntity<ApiResponse<User>>(registeredUser, HttpStatus.EXPECTATION_FAILED);
+		}
 }
