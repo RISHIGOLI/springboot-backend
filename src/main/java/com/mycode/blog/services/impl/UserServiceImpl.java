@@ -122,6 +122,8 @@ public class UserServiceImpl implements UserService {
 //		
 //		return this.modelMapper.map(newUser, UserDto.class);
 //	}
+	
+	
 
 	@Override
 	public ApiResponse<User> registerNewUser_2(User userDto) {
@@ -174,6 +176,13 @@ public class UserServiceImpl implements UserService {
 				this.userRepo.save(userDto);
 				  return new ApiResponse(userDto,"User registered successfully.",true,201);
 				 
+	}
+
+	@Override
+	public Optional<User> findByEmail(String email) {
+		// TODO Auto-generated method stub
+		
+		return this.userRepo.findByEmail(email);
 	}
 
 	

@@ -1,9 +1,22 @@
 package com.mycode.blog.payloads;
 
+import org.springframework.security.core.userdetails.UserDetails;
+
+import com.mycode.blog.controllers.AuthController;
+import com.mycode.blog.entities.User;
+
 import lombok.Data;
 
 @Data
-public class JwtAuthResponse {
+public class JwtAuthResponse<T> {
 	
 	private String token;
+	
+	private T data;
+
+	
+	
+	
+
+	
 }

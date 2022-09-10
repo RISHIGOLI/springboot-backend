@@ -1,6 +1,7 @@
 package com.mycode.blog.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
@@ -15,7 +16,7 @@ public interface UserService {
 	
 	
 	 
-	 
+	Optional<User> findByEmail(String email);
 	 
 	 
 	 
