@@ -49,14 +49,26 @@ public class AuthController {
 	{
 		this.authenticate(jwtAuthRequest.getUsername(), jwtAuthRequest.getPassword());
 		
-		UserDetails userDetails = this.userDetailsService.loadUserByUsername(jwtAuthRequest.getUsername());
-		String token = this.jwtTokenHelper.generateToken(userDetails);
+		//UserDetails userDetails = this.userDetailsService.loadUserByUsername(jwtAuthRequest.getUsername());
+		ApiResponse<User> userApiResponse = (ApiResponse<User>) userService.findByEmail(jwtAuthRequest.getUsername());
 		JwtAuthResponse jwtAuthResponse = new JwtAuthResponse();
+		
+		
+		if(userApiResponse.isStatus())
+		{
+		String token = this.jwtTokenHelper.generateToken(userApiResponse.getData());
+		
 		jwtAuthResponse.setToken(token);
+		jwtAuthResponse.setData(userApiResponse.getData());
 		//jwtAuthResponse.setData(userDetails);
-		UserDetails userDetails2 = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		jwtAuthResponse.setData(userDetails2);
+		//UserDetails userDetails2 = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		//jwtAuthResponse.setData(userDetails2);
 		return new ResponseEntity<JwtAuthResponse>(jwtAuthResponse, HttpStatus.OK);
+		}
+		else {
+			
+			return new ResponseEntity<JwtAuthResponse>(jwtAuthResponse, HttpStatus.EXPECTATION_FAILED);
+		}
 	}
 	
 	private void authenticate(String username, String password) throws Exception

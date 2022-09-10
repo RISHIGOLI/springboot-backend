@@ -178,12 +178,31 @@ public class UserServiceImpl implements UserService {
 				 
 	}
 
-	@Override
-	public Optional<User> findByEmail(String email) {
-		// TODO Auto-generated method stub
-		
-		return this.userRepo.findByEmail(email);
+@Override
+public ApiResponse<User> findByEmail(String email) {
+	Optional<User> returnedUser = userRepo.findByEmail(email);
+	
+	if(returnedUser.isPresent()) {
+		return new ApiResponse<User>(returnedUser.get(),"User found !",true,200);
 	}
+	User tempUser = new User();
+	return new ApiResponse(tempUser,"User Not found !",false,402);
+//	return null;
+	
+}
+
+	/*
+	 * @Override public ApiResponse<User> findByEmail(String email) { // TODO
+	 * Auto-generated method stub
+	 * 
+	 * Optional<User> returnedUser = userRepo.findByEmail(email);
+	 * if(returnedUser.isPresent()) { return new
+	 * ApiResponse<User>(returnedUser.get(),"User found !",true,200); } User
+	 * tempUser = new User(); return new
+	 * ApiResponse<User>(tempUser,"User Not found !",false,402);
+	 * 
+	 * }
+	 */
 
 	
 

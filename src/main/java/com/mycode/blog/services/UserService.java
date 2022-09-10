@@ -16,7 +16,7 @@ public interface UserService {
 	
 	
 	 
-	Optional<User> findByEmail(String email);
+	ApiResponse<User> findByEmail(String email);
 	 
 	 
 	 

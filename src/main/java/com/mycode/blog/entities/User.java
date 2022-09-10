@@ -70,7 +70,11 @@ public class User implements UserDetails{
 	@Column(name="mobile_no")
 	private String mobile;
 	
+	@OneToMany(mappedBy = "userId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private List<Vehicle> vehicles = new ArrayList<>();
+	
 
+	
 	
 	
 

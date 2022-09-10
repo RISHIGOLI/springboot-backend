@@ -2,6 +2,8 @@ package com.mycode.blog.security;
 
 import org.springframework.stereotype.Component;
 
+import com.mycode.blog.entities.User;
+
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -56,10 +58,10 @@ public class JwtTokenHelper {
 	}
 	
 	//generate token for user
-	public String generateToken(UserDetails userDetails)
+	public String generateToken(User userDetails)
 	{
 		Map<String, Object> claims = new HashMap<>();
-		return doGenerateToken(claims, userDetails.getUsername());
+		return doGenerateToken(claims, userDetails.getEmail());
 	}
 	
 	//while creating the token
