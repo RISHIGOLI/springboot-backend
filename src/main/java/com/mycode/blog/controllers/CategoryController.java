@@ -32,8 +32,8 @@ public class CategoryController {
 	@DeleteMapping("/deleteCategory/{categoryId}")
 	public ApiResponse<Category> deleteCategory(@PathVariable Integer categoryId){
 		this.categoryService.deleteCategory(categoryId);
-		Category category = this.categoryService.getCategoryById(categoryId);
-		return new ApiResponse(category,"Category with" + categoryId + "deleted successfully.",true,200);
+		//Category category = this.categoryService.getCategoryById(categoryId);
+		return new ApiResponse("Category with" + categoryId + "deleted successfully.",true,200);
 	}
 	
 	

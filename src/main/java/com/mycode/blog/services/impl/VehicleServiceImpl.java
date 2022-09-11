@@ -41,6 +41,17 @@ public class VehicleServiceImpl implements VehicleService {
 		return vehicle;
 	}
 
+	@Override
+	public void deleteVehicle(Integer vehicleId) {
+		// TODO Auto-generated method stub
+		Vehicle vehicle = this.vehicleRepo.findById(vehicleId).orElseThrow(()-> new ResourceNotFoundException("vehicle", "vehicle id", vehicleId));
+		this.vehicleRepo.delete(vehicle);
+		
+	}
+
+	
+
+	
 
 	
 	

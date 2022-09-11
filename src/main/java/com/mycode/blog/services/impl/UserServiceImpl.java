@@ -148,8 +148,8 @@ public class UserServiceImpl implements UserService {
 		else if(Utility.isFieldEmpty(userDto.getMobile()) || userDto.getMobile().length()!=10)
 			return new ApiResponse<>("Proper Mobile Number not provided", false, 402);
 		
-		else if(Utility.isFieldEmpty(userDto.getDob()))
-			return new ApiResponse<>("Date of Birth Not Provided", false, 402);
+//		else if(Utility.isFieldEmpty(userDto.getDob()))
+//			return new ApiResponse<>("Date of Birth Not Provided", false, 402);
 		
 		else if(Utility.isFieldEmpty(userDto.getGender()))
 			return new ApiResponse<>("Gender not selected", false, 402);

@@ -36,9 +36,10 @@ import lombok.Setter;
 @Entity
 @Table(name="registered_users")
 @NoArgsConstructor
-@Getter
 @Setter
+@Getter
 public class User implements UserDetails{
+	
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -50,8 +51,8 @@ public class User implements UserDetails{
 	@Column(name="last_name", nullable = false, length=100)
 	private String lastName;
 	
-	@Column(name="date_of_birth", nullable=false)
-	private String dob;
+//	@Column(name="date_of_birth", nullable=false)
+//	private String dob;
 	
 	@Column(unique = true)
 	@Email(message ="email must be in proper format")
@@ -70,10 +71,29 @@ public class User implements UserDetails{
 	@Column(name="mobile_no")
 	private String mobile;
 	
+	
 	@OneToMany(mappedBy = "userId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<Vehicle> vehicles = new ArrayList<>();
 	
 
+	public int getId() {
+		return id;
+	}
+
+	@JsonIgnore
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	
+	public List<Vehicle> getVehicles() {
+		return vehicles;
+	}
+
+	@JsonIgnore
+	public void setVehicles(List<Vehicle> vehicles) {
+		this.vehicles = vehicles;
+	}
 	
 	
 	
@@ -124,5 +144,8 @@ public class User implements UserDetails{
 	public void setPassword(String password) {
 		this.password=password;
 	}
+	
+	
+	
 	
 }

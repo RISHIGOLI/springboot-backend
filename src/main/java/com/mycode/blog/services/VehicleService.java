@@ -16,5 +16,11 @@ public interface VehicleService {
 
 	
 
+	void deleteVehicle(Integer vehicleId);
+
+	
+
+	
+
 	
 }
