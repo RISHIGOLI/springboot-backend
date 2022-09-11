@@ -53,8 +53,10 @@ public class VehicleController {
 			//Vehicle vehicle = this.vehicleService.getVehicleById(vehicleId);
 			
 			
-			return new ApiResponse("Vehicle with" + vehicleId + "deleted successfully.",true,200);
+			return new ApiResponse("Vehicle with " + vehicleId + " deleted successfully.",true,200);
 		}
+		
+		
 	
 
 }

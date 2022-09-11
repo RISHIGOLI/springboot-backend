@@ -3,6 +3,7 @@ package com.mycode.blog.controllers;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -29,15 +30,18 @@ public class CategoryController {
 		return new ApiResponse(category,"Category added successfully.",true,201);
 	}
 	
-	@DeleteMapping("/deleteCategory/{categoryId}")
-	public ApiResponse<Category> deleteCategory(@PathVariable Integer categoryId){
-		this.categoryService.deleteCategory(categoryId);
-		//Category category = this.categoryService.getCategoryById(categoryId);
-		return new ApiResponse("Category with" + categoryId + "deleted successfully.",true,200);
-	}
+	
+	//delete category by id
+		@DeleteMapping("/deleteCategory/{categoryId}")
+		public ApiResponse<Category> deleteCategory(@PathVariable Integer categoryId)
+		{
+			this.categoryService.deleteCategory(categoryId);
+			//return new ResponseEntity<ApiResponse>(new ApiResponse("category is deleted successfully !", true), HttpStatus.OK);
+			return new ApiResponse("Category deleted successfully.",true,200);
+		}
 	
 	
-	//get
+	//get category by id
 		@GetMapping("/categories/{categoryId}")
 		public ApiResponse<Category> getCategoryById(@PathVariable Integer categoryId)
 		{

@@ -34,7 +34,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name="registered_users")
+@Table(name="registered_users2")
 @NoArgsConstructor
 @Setter
 @Getter
@@ -55,8 +55,8 @@ public class User implements UserDetails{
 //	private String dob;
 	
 	@Column(unique = true)
-	@Email(message ="email must be in proper format")
-	@NotEmpty
+//	@Email(message ="email must be in proper format")
+//	@NotEmpty
 	private String email;
 	
 	@Column(name="password", nullable=false)
@@ -76,6 +76,7 @@ public class User implements UserDetails{
 	private List<Vehicle> vehicles = new ArrayList<>();
 	
 
+	@JsonProperty
 	public int getId() {
 		return id;
 	}
