@@ -31,12 +31,14 @@ public class Category {
 	private int categoryId;
 	
 	@Column(name="title", length = 100, nullable=false)
+	@JsonIgnore
 	private String categoryTitle;
 	
 	@Column(name="description")
+	@JsonIgnore
 	private String categoryDescription;
 	
-	@OneToMany(mappedBy = "categoryId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "category", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<Vehicle> vehicles = new ArrayList<>();
 	
 	 	

@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.mycode.blog.entities.ApiResponse;
 import com.mycode.blog.entities.Category;
 import com.mycode.blog.entities.Vehicle;
+import com.mycode.blog.payloads.VehicleDto;
 import com.mycode.blog.services.VehicleService;
 
 @RestController
@@ -27,12 +28,15 @@ public class VehicleController {
 	
 	
 	//post add new vehicle
-	@PostMapping("/addNewVehicle")
-	public ApiResponse<Vehicle> addNewVehicle(@Valid @RequestBody Vehicle vehicle){
+	@PostMapping("/user/{userId}/category/{categoryId}/addVehicle")
+	public ApiResponse<VehicleDto> addVehicle(@Valid @RequestBody VehicleDto vehicleDto, @PathVariable Integer userId, @PathVariable Integer categoryId ){
 		
-		this.vehicleService.addNewVehicle(vehicle);
-		return new ApiResponse(vehicle,"Vehicle registered successfully.",true,201);
+		//this.vehicleService.addNewVehicle(vehicle);
+		VehicleDto addVehicle = this.vehicleService.addVehicle(vehicleDto, userId, categoryId);
+		return new ApiResponse(addVehicle,"Vehicle registered successfully.",true,201);
 	}
+	
+	
 	
 	//get vehicle detail by id
 		@GetMapping("/vehicles/{vehicleId}")

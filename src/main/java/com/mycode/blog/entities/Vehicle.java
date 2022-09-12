@@ -5,8 +5,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name="vehicles")
@@ -27,33 +30,59 @@ public class Vehicle {
 	
 	
 	//relations mapping below
-//	@ManyToOne
-//	private User user;
+	@ManyToOne
+	private User user;
 	
-	//@ManyToOne
-	private int userId;
-	
-	private int categoryId;
+//	//@ManyToOne
+//	private int userId;
 	
 	
+	//whole object mapping
+	@ManyToOne
+	@JoinColumn(name="category_id")
+	private Category category;
+	
+	
+
 	
 	
 	
 	
 	
 	
-	public int getCategoryId() {
-		return categoryId;
+	
+//getters and setters for object mappig
+	public Category getCategory() {
+		return category;
 	}
-	public void setCategoryId(int categoryId) {
-		this.categoryId = categoryId;
+
+	
+	public void setCategory(Category category) {
+		this.category = category;
 	}
-	public int getUserId() {
-		return userId;
+
+	
+		
+	
+
+	public User getUser() {
+		return user;
 	}
-	public void setUserId(int userId) {
-		this.userId = userId;
+	
+	@JsonIgnore
+	public void setUser(User user) {
+		this.user = user;
 	}
+	
+//	public void setCategoryId(int categoryId) {
+//		this.categoryId = categoryId;
+//	}
+//	public int getUserId() {
+//		return userId;
+//	}
+//	public void setUserId(int userId) {
+//		this.userId = userId;
+//	}
 	/*
 	 * public User getUser() { return user; } public void setUser(User user) {
 	 * this.user = user; }

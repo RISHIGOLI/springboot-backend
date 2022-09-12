@@ -2,16 +2,22 @@ package com.mycode.blog.services.impl;
 
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.mycode.blog.entities.ApiResponse;
+import com.mycode.blog.entities.Category;
 import com.mycode.blog.entities.User;
 import com.mycode.blog.entities.Vehicle;
 import com.mycode.blog.exceptions.ResourceNotFoundException;
+import com.mycode.blog.payloads.VehicleDto;
+import com.mycode.blog.repositories.CategoryRepo;
 import com.mycode.blog.repositories.UserRepo;
 import com.mycode.blog.repositories.VehicleRepo;
+
 import com.mycode.blog.services.VehicleService;
 import com.mycode.blog.utils.Utility;
 
@@ -26,13 +32,16 @@ public class VehicleServiceImpl implements VehicleService {
 	
 	@Autowired
 	private ModelMapper modelMapper;
+	
+	@Autowired
+	private CategoryRepo categoryRepo;
 
-	@Override
-	public ApiResponse<Vehicle> addNewVehicle(Vehicle vehicle) {
-		// TODO Auto-generated method stub
-		vehicleRepo.save(vehicle);
-		return null;
-	}
+//	@Override
+//	public ApiResponse<Vehicle> addNewVehicle(Vehicle vehicle) {
+//		// TODO Auto-generated method stub
+//		vehicleRepo.save(vehicle);
+//		return null;
+//	}
 
 	@Override
 	public Vehicle getVehicleById(Integer vehicleId) {
@@ -48,6 +57,32 @@ public class VehicleServiceImpl implements VehicleService {
 		this.vehicleRepo.delete(vehicle);
 		
 	}
+
+	@Override
+	public VehicleDto addVehicle(VehicleDto vehicleDto, Integer userId, Integer categoryId) {
+		// TODO Auto-generated method stub
+		User user = this.userRepo.findById(userId).orElseThrow(()-> new ResourceNotFoundException("user", "user id", userId));
+		Category category = this.categoryRepo.findById(categoryId).orElseThrow(()-> new ResourceNotFoundException("category", "category id", categoryId));
+		
+		Vehicle vehicle = this.modelMapper.map(vehicleDto, Vehicle.class);
+		vehicle.setCategory(category);
+		vehicle.setUser(user);
+		
+		Vehicle newVehicle = this.vehicleRepo.save(vehicle);
+		
+		return this.modelMapper.map(newVehicle, VehicleDto.class);
+	}
+	
+
+	
+	
+
+	
+
+	
+
+
+	
 
 	
 
