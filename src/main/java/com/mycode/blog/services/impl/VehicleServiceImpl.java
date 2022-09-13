@@ -1,6 +1,9 @@
 package com.mycode.blog.services.impl;
 
+import java.util.List;
 import java.util.Optional;
+
+import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
@@ -72,8 +75,61 @@ public class VehicleServiceImpl implements VehicleService {
 		
 		return this.modelMapper.map(newVehicle, VehicleDto.class);
 	}
-	
 
+	//get vehicle by category
+	@Override
+	public List<Vehicle> getVehiclesByCategory(Integer categoryId) {
+		Category category = this.categoryRepo.findById(categoryId).orElseThrow(()-> new ResourceNotFoundException("category", "category id", categoryId));
+		//List<Vehicle> vehicles = this.vehicleRepo.findByCategory(category);
+		List<Vehicle> vehicles = this.vehicleRepo.findByCategory(category);
+		
+		
+		return vehicles.stream().collect(Collectors.toList());
+	}
+
+	
+	// get all vehicles
+	@Override
+	public List<Vehicle> getAllVehicles() {
+		List<Vehicle> allVehicles = this.vehicleRepo.findAll();
+		
+		return allVehicles;
+	}
+
+	//get vehicles by user
+	@Override
+	public List<Vehicle> getVehiclesByUser(Integer userId) {
+		User user = this.userRepo.findById(userId).orElseThrow(()-> new ResourceNotFoundException("user", "user id", userId));
+		
+		List<Vehicle> vehicles = this.vehicleRepo.findByUser(user);
+		return vehicles.stream().collect(Collectors.toList());
+	}
+
+	@Override
+	public Vehicle updateVehicle(Vehicle vehicle, Integer vehicleId) {
+		Vehicle getCurrentVehicle = this.vehicleRepo.findById(vehicleId).orElseThrow(()-> new ResourceNotFoundException("vehicle", "vehicle id", vehicleId));
+		getCurrentVehicle.setModel(vehicle.getModel());
+		getCurrentVehicle.setColor(vehicle.getColor());
+		getCurrentVehicle.setV_name(vehicle.getV_name());
+		
+		Vehicle updatedVehicle = this.vehicleRepo.save(getCurrentVehicle);
+		
+		return getCurrentVehicle;
+	}
+	
+//	@Override
+//	public PostDto updatePost(PostDto postDto, Integer postId) {
+//		Post post = this.postRepo.findById(postId).orElseThrow(()-> new ResourceNotFoundException("post", "post id", postId));
+//		post.setTitle(postDto.getTitle());
+//		post.setContent(postDto.getContent());
+//		post.setImageName(postDto.getImageName());
+//		
+//		Post updatedPost = this.postRepo.save(post);
+//		
+//		return this.modelMapper.map(updatedPost, PostDto.class);
+//	}
+
+	
 	
 	
 

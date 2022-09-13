@@ -1,5 +1,7 @@
 package com.mycode.blog.services;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.stereotype.Service;
@@ -24,6 +26,26 @@ public interface VehicleService {
 
 
 	VehicleDto addVehicle(@Valid VehicleDto vehicleDto, Integer userId, Integer categoryId);
+
+
+
+	
+
+
+
+	List<Vehicle> getVehiclesByCategory(Integer categoryId);
+
+
+
+	List<Vehicle> getAllVehicles();
+
+
+
+	List<Vehicle> getVehiclesByUser(Integer userId);
+
+
+
+	Vehicle updateVehicle(Vehicle vehicle, Integer vehicleId);
 
 
 
