@@ -13,4 +13,6 @@ public interface VehicleRepo extends JpaRepository<Vehicle, Integer>{
 	List<Vehicle> findByCategory(Category category);
 	
 	List<Vehicle> findByUser(User user);
+	
+	List<Vehicle> findByModelContaining(String name);
 }

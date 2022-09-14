@@ -14,13 +14,27 @@ public class VehicleDto {
 
 	private int id;
 	
-	private String v_name;
-	
 	private String model;
 	
-	private String color;
+	private String number;
+	
+	private String city;
+	
+	private String seatingCapacity;
+	
+	private String luggageCapacity;
+	
+	private String fuelType;
+	
+	private String transmission;
+	
+	private String airCondition;
+	
+	private String mileage;
 	
 	private User user;
 	
 	private Category category;
+	
+	private String vehicleImage;
 }

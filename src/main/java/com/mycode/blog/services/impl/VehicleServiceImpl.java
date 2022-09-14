@@ -9,6 +9,10 @@ import javax.validation.Valid;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
 
 import com.mycode.blog.entities.ApiResponse;
@@ -17,6 +21,7 @@ import com.mycode.blog.entities.User;
 import com.mycode.blog.entities.Vehicle;
 import com.mycode.blog.exceptions.ResourceNotFoundException;
 import com.mycode.blog.payloads.VehicleDto;
+import com.mycode.blog.payloads.VehicleResponse;
 import com.mycode.blog.repositories.CategoryRepo;
 import com.mycode.blog.repositories.UserRepo;
 import com.mycode.blog.repositories.VehicleRepo;
@@ -109,25 +114,58 @@ public class VehicleServiceImpl implements VehicleService {
 	public Vehicle updateVehicle(Vehicle vehicle, Integer vehicleId) {
 		Vehicle getCurrentVehicle = this.vehicleRepo.findById(vehicleId).orElseThrow(()-> new ResourceNotFoundException("vehicle", "vehicle id", vehicleId));
 		getCurrentVehicle.setModel(vehicle.getModel());
-		getCurrentVehicle.setColor(vehicle.getColor());
-		getCurrentVehicle.setV_name(vehicle.getV_name());
+		getCurrentVehicle.setCity(vehicle.getCity());
+		getCurrentVehicle.setNumber(vehicle.getNumber());
+		getCurrentVehicle.setCategory(vehicle.getCategory());
+		getCurrentVehicle.setSeatingCapacity(vehicle.getSeatingCapacity());
+		getCurrentVehicle.setLuggageCapacity(vehicle.getLuggageCapacity());
+		getCurrentVehicle.setFuelType(vehicle.getFuelType());
+		getCurrentVehicle.setTransmission(vehicle.getTransmission());
+		getCurrentVehicle.setAirCondition(vehicle.getAirCondition());
+		getCurrentVehicle.setMileage(vehicle.getMileage());
+		
 		
 		Vehicle updatedVehicle = this.vehicleRepo.save(getCurrentVehicle);
 		
 		return getCurrentVehicle;
 	}
+
+	@Override
+	public List<Vehicle> searchVehiclesByName(String keywords) {
+		List<Vehicle> vehicles = this.vehicleRepo.findByModelContaining(keywords);
+		return vehicles.stream().collect(Collectors.toList());
+	}
+
+	@Override
+	public VehicleResponse getAllVehiclesWithPagination(Integer pageNumber, Integer pageSize, String sortBy,
+			String sortDir) {
+		Sort sort = null;
+		if(sortDir.equalsIgnoreCase("asc"))
+			{
+				sort=Sort.by(sortBy).ascending();
+			}else {
+				sort=Sort.by(sortBy).descending();
+			}
+		
+		Pageable p = PageRequest.of(pageNumber, pageSize, sort);
+		Page<Vehicle> pageVehicle = this.vehicleRepo.findAll(p);
+		List<Vehicle> allVehicles = pageVehicle.getContent();
+		
+		List<Vehicle> vehicles = allVehicles.stream().collect(Collectors.toList());
+		
+		VehicleResponse vehicleResponse = new VehicleResponse();
+		
+		vehicleResponse.setContent(vehicles);
+		vehicleResponse.setPageNumber(pageVehicle.getNumber());
+		vehicleResponse.setPageSize(pageVehicle.getSize());
+		vehicleResponse.setTotalElements(pageVehicle.getTotalElements());
+		vehicleResponse.setTotalPages(pageVehicle.getTotalPages());
+		vehicleResponse.setLastPage(pageVehicle.isLast());
+		
+		return vehicleResponse;
+	}
 	
-//	@Override
-//	public PostDto updatePost(PostDto postDto, Integer postId) {
-//		Post post = this.postRepo.findById(postId).orElseThrow(()-> new ResourceNotFoundException("post", "post id", postId));
-//		post.setTitle(postDto.getTitle());
-//		post.setContent(postDto.getContent());
-//		post.setImageName(postDto.getImageName());
-//		
-//		Post updatedPost = this.postRepo.save(post);
-//		
-//		return this.modelMapper.map(updatedPost, PostDto.class);
-//	}
+
 
 	
 	

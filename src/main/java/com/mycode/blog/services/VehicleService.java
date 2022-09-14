@@ -10,6 +10,7 @@ import com.mycode.blog.entities.ApiResponse;
 import com.mycode.blog.entities.User;
 import com.mycode.blog.entities.Vehicle;
 import com.mycode.blog.payloads.VehicleDto;
+import com.mycode.blog.payloads.VehicleResponse;
 
 @Service
 public interface VehicleService {
@@ -18,6 +19,8 @@ public interface VehicleService {
 	//ApiResponse<Vehicle> addNewVehicle(Vehicle vehicle);
 
 	Vehicle getVehicleById(Integer vehicleId);
+	
+	
 
 	
 
@@ -26,6 +29,8 @@ public interface VehicleService {
 
 
 	VehicleDto addVehicle(@Valid VehicleDto vehicleDto, Integer userId, Integer categoryId);
+	
+	VehicleResponse getAllVehiclesWithPagination(Integer pageNumber, Integer pageSize, String sortBy, String sortDir);
 
 
 
@@ -46,6 +51,16 @@ public interface VehicleService {
 
 
 	Vehicle updateVehicle(Vehicle vehicle, Integer vehicleId);
+
+
+
+	List<Vehicle> searchVehiclesByName(String keywords);
+
+
+
+
+
+	
 
 
 
