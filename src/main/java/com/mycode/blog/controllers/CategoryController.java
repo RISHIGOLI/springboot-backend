@@ -1,5 +1,7 @@
 package com.mycode.blog.controllers;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,5 +50,20 @@ public class CategoryController {
 			Category category = this.categoryService.getCategoryById(categoryId);
 			return new ApiResponse(category,"Category found",true,200);
 		}
+		
+		//get all categories
+		@GetMapping("/getAllCategories")
+		public ApiResponse<List<Category>> getAllCategories()
+		{
+			List<Category> categories = this.categoryService.getAllCategories();
+			return new ApiResponse<>(categories, "categories found", true, 200);
+			
+		}
+//		@GetMapping("/")
+//		public ResponseEntity<List<CategoryDto>> getCategories()
+//		{
+//			List<CategoryDto> categories = this.categoryService.getCategories();
+//			return ResponseEntity.ok(categories);
+//		}
 	
 }

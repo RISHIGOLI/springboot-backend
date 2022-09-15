@@ -26,8 +26,9 @@ public interface CategoryService {
 		
 		
 		
-		//get all
-		public List<Category> getCategories();
+		
+		//get all catgories
+		List<Category> getAllCategories();
 
 		
 }

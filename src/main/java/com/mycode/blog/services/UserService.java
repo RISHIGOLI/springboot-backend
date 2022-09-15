@@ -3,6 +3,8 @@ package com.mycode.blog.services;
 import java.util.List;
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import org.springframework.stereotype.Service;
 
 import com.mycode.blog.entities.ApiResponse;
@@ -17,6 +19,8 @@ public interface UserService {
 	
 	 
 	ApiResponse<User> findByEmail(String email);
+	
+	//User findByEmail(String email);
 	 
 	 
 	 
@@ -25,5 +29,13 @@ public interface UserService {
 	
 	 
 	 ApiResponse<User> registerNewUser_2(User user);
+
+
+
+
+
+
+
+	User updateUser(@Valid User user, Integer userId);
 	 
 }

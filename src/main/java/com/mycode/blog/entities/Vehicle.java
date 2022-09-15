@@ -51,6 +51,8 @@ public class Vehicle {
 	
 	
 	
+	
+	
 	//relations mapping below
 	@ManyToOne
 	private User user;

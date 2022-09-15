@@ -1,6 +1,7 @@
 package com.mycode.blog.services.impl;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -51,20 +52,31 @@ public class CategoryServiceImpl implements CategoryService{
 		return null;
 	}
 
-	@Override
-	public List<Category> getCategories() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	
 
 	@Override
 	public Category getCategoryById(Integer categoryId) {
 		// TODO Auto-generated method stub
-		Category category = this.categoryRepo.findById(categoryId).orElseThrow(()-> new ResourceNotFoundException("vehicle", "vehicle id", categoryId));
+		Category category = this.categoryRepo.findById(categoryId).orElseThrow(()-> new ResourceNotFoundException("category", "categoy id", categoryId));
 		
 		
 		return category;
 	}
+
+	@Override
+	public List<Category> getAllCategories() {
+		List<Category> categories = this.categoryRepo.findAll();
+		return categories.stream().collect(Collectors.toList());
+	}
+	
+	
+//	@Override
+//	public List<CategoryDto> getCategories() {
+//		List<Category> categories = this.categoryRepo.findAll();
+//		List<CategoryDto> catDtos = categories.stream().map((cat)-> this.modelMapper.map(cat, CategoryDto.class)).collect(Collectors.toList());
+//		
+//		return catDtos;
+//	}
 	
 	
 

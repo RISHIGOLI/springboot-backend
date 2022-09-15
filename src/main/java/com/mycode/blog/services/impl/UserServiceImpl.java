@@ -5,6 +5,8 @@ import java.util.Optional;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
+import javax.validation.Valid;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -191,18 +193,26 @@ public ApiResponse<User> findByEmail(String email) {
 	
 }
 
-	/*
-	 * @Override public ApiResponse<User> findByEmail(String email) { // TODO
-	 * Auto-generated method stub
-	 * 
-	 * Optional<User> returnedUser = userRepo.findByEmail(email);
-	 * if(returnedUser.isPresent()) { return new
-	 * ApiResponse<User>(returnedUser.get(),"User found !",true,200); } User
-	 * tempUser = new User(); return new
-	 * ApiResponse<User>(tempUser,"User Not found !",false,402);
-	 * 
-	 * }
-	 */
+@Override
+public User updateUser(@Valid User user, Integer userId) {
+	User user2 = this.userRepo.findById(userId).orElseThrow(() -> new ResourceNotFoundException("User", "id", userId));
+	user2.setFirstName(user.getFirstName());
+	user2.setLastName(user.getLastName());
+	user2.setMobile(user.getMobile());
+	user2.setGender(user.getGender());
+	user2.setAddress(user.getAddress());
+	user2.setPassword(this.passwordEncoder.encode(user.getPassword()));
+	user2.setDob(user.getDob());
+	user2.setCity(user.getCity());
+	
+	User updatedUser = this.userRepo.save(user2);
+	
+	return updatedUser;
+}
+
+
+
+
 
 	
 

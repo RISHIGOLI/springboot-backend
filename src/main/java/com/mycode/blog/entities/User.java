@@ -71,6 +71,12 @@ public class User implements UserDetails{
 	@Column(name="mobile_no")
 	private String mobile;
 	
+	@Column(name="city")
+	private String city;
+	
+	@Column(name="date_of_birth")
+	private String dob;
+	
 	
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<Vehicle> vehicles = new ArrayList<>();
@@ -145,6 +151,33 @@ public class User implements UserDetails{
 	public void setPassword(String password) {
 		this.password=password;
 	}
+
+	public User(int id, String firstName, String lastName, String email, String password, String address, String gender,
+			String mobile, String city, String dob, List<Vehicle> vehicles) {
+		super();
+		this.id = id;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.email = email;
+		this.password = password;
+		this.address = address;
+		this.gender = gender;
+		this.mobile = mobile;
+		this.city = city;
+		this.dob = dob;
+		this.vehicles = vehicles;
+	}
+
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email
+				+ ", password=" + password + ", address=" + address + ", gender=" + gender + ", mobile=" + mobile
+				+ ", city=" + city + ", dob=" + dob + ", vehicles=" + vehicles + "]";
+	}
+
+	
+
+
 	
 	
 	
