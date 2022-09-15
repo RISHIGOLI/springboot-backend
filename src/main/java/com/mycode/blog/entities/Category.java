@@ -14,6 +14,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -30,15 +31,14 @@ public class Category {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int categoryId;
 	
-	@Column(name="title", length = 100, nullable=false)
-	
+	@Column(name="title", length = 100, nullable=false)	
 	private String categoryTitle;
 	
 	@Column(name="description")
-	
 	private String categoryDescription;
 	
-	@OneToMany(mappedBy = "category", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@JsonManagedReference
+	@OneToMany(mappedBy = "category", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private List<Vehicle> vehicles = new ArrayList<>();
 	
 	 	

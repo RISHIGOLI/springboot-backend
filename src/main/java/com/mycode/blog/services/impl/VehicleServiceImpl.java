@@ -110,6 +110,7 @@ public class VehicleServiceImpl implements VehicleService {
 		return vehicles.stream().collect(Collectors.toList());
 	}
 
+	//update vehicle
 	@Override
 	public Vehicle updateVehicle(Vehicle vehicle, Integer vehicleId) {
 		Vehicle getCurrentVehicle = this.vehicleRepo.findById(vehicleId).orElseThrow(()-> new ResourceNotFoundException("vehicle", "vehicle id", vehicleId));

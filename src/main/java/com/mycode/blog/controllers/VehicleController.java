@@ -86,14 +86,14 @@ public class VehicleController {
 			
 		}
 		
-		//get all vehicles
-		@GetMapping("/all")
-		public ApiResponse<Vehicle> getAllVehicles()
-		{
-			List<Vehicle> allVehicles = this.vehicleService.getAllVehicles();
-			return new ApiResponse<Vehicle>(allVehicles, "Vehicles Found", true, 200);
-			
-		}
+//		//get all vehicles
+//		@GetMapping("/all")
+//		public ApiResponse<Vehicle> getAllVehicles()
+//		{
+//			List<Vehicle> allVehicles = this.vehicleService.getAllVehicles();
+//			return new ApiResponse<Vehicle>(allVehicles, "Vehicles Found", true, 200);
+//			
+//		}
 
 		// get vehicles by user
 		@GetMapping("/getVehiclesByUser/{userId}")

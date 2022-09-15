@@ -9,6 +9,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
@@ -54,6 +55,7 @@ public class Vehicle {
 	
 	
 	//relations mapping below
+	@JsonBackReference
 	@ManyToOne
 	private User user;
 	
@@ -62,6 +64,7 @@ public class Vehicle {
 	
 	
 	//whole object mapping
+	@JsonBackReference
 	@ManyToOne
 	@JoinColumn(name="category_id")
 	private Category category;
