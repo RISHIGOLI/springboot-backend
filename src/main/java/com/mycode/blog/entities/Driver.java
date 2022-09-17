@@ -38,10 +38,9 @@ public class Driver {
 	@Column
 	private String d_knownLanguages;
 	
-	@OneToOne
-	private User user;
 	
-	@JsonBackReference
+	
+	//@JsonBackReference
 	@ManyToOne
 	@JoinColumn(name="driver_category_id")
 	private DriverCategory driverCategory;
@@ -102,13 +101,13 @@ public class Driver {
 		this.d_knownLanguages = d_knownLanguages;
 	}
 
-	public User getUser() {
-		return user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
-	}
+//	public User getUser() {
+//		return user;
+//	}
+//
+//	public void setUser(User user) {
+//		this.user = user;
+//	}
 
 	public DriverCategory getDriverCategory() {
 		return driverCategory;
@@ -122,7 +121,7 @@ public class Driver {
 	public String toString() {
 		return "Driver [d_id=" + d_id + ", d_bloodGroup=" + d_bloodGroup + ", d_altMobNo=" + d_altMobNo
 				+ ", d_ridingExperience=" + d_ridingExperience + ", d_ratings=" + d_ratings + ", d_education="
-				+ d_education + ", d_knownLanguages=" + d_knownLanguages + ", user=" + user + ", driverCategory="
+				+ d_education + ", d_knownLanguages=" + d_knownLanguages + ", driverCategory="
 				+ driverCategory + "]";
 	}
 
@@ -136,7 +135,7 @@ public class Driver {
 		this.d_ratings = d_ratings;
 		this.d_education = d_education;
 		this.d_knownLanguages = d_knownLanguages;
-		this.user = user;
+		//this.user = user;
 		this.driverCategory = driverCategory;
 	}
 

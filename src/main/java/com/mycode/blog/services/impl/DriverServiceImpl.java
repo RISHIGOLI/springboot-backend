@@ -42,7 +42,7 @@ public class DriverServiceImpl implements DriverService{
 		
 		Driver driver = this.modelMapper.map(driverDto, Driver.class);
 		driver.setDriverCategory(driverCategory);
-		driver.setUser(user);
+		
 		
 		Driver newDriver = this.driverRepo.save(driver);
 		

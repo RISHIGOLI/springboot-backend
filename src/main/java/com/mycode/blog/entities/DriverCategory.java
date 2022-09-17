@@ -37,8 +37,8 @@ public class DriverCategory {
 	@Column(name="driverCategoryDescription")
 	private String d_categoryDescription;
 	
-	@JsonManagedReference
-	@OneToMany(mappedBy = "driverCategory", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	//@JsonManagedReference
+	@OneToMany(mappedBy = "driverCategory", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<Driver> drivers = new ArrayList<>();
 
 	public List<Driver> getDrivers() {
@@ -46,6 +46,7 @@ public class DriverCategory {
 	}
 
 	
+	@JsonIgnore
 	public void setDrivers(List<Driver> drivers) {
 		this.drivers = drivers;
 	}

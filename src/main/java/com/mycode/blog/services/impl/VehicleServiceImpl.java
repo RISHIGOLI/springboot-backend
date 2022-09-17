@@ -112,23 +112,23 @@ public class VehicleServiceImpl implements VehicleService {
 
 	//update vehicle
 	@Override
-	public Vehicle updateVehicle(Vehicle vehicle, Integer vehicleId) {
+	public VehicleDto updateVehicle(VehicleDto vehicleDto, Integer vehicleId) {
 		Vehicle getCurrentVehicle = this.vehicleRepo.findById(vehicleId).orElseThrow(()-> new ResourceNotFoundException("vehicle", "vehicle id", vehicleId));
-		getCurrentVehicle.setModel(vehicle.getModel());
-		getCurrentVehicle.setCity(vehicle.getCity());
-		getCurrentVehicle.setNumber(vehicle.getNumber());
-		getCurrentVehicle.setCategory(vehicle.getCategory());
-		getCurrentVehicle.setSeatingCapacity(vehicle.getSeatingCapacity());
-		getCurrentVehicle.setLuggageCapacity(vehicle.getLuggageCapacity());
-		getCurrentVehicle.setFuelType(vehicle.getFuelType());
-		getCurrentVehicle.setTransmission(vehicle.getTransmission());
-		getCurrentVehicle.setAirCondition(vehicle.getAirCondition());
-		getCurrentVehicle.setMileage(vehicle.getMileage());
+		getCurrentVehicle.setModel(vehicleDto.getModel());
+		getCurrentVehicle.setCity(vehicleDto.getCity());
+		getCurrentVehicle.setNumber(vehicleDto.getNumber());
+		getCurrentVehicle.setCategory(vehicleDto.getCategory());
+		getCurrentVehicle.setSeatingCapacity(vehicleDto.getSeatingCapacity());
+		getCurrentVehicle.setLuggageCapacity(vehicleDto.getLuggageCapacity());
+		getCurrentVehicle.setFuelType(vehicleDto.getFuelType());
+		getCurrentVehicle.setTransmission(vehicleDto.getTransmission());
+		getCurrentVehicle.setAirCondition(vehicleDto.getAirCondition());
+		getCurrentVehicle.setMileage(vehicleDto.getMileage());
 		
 		
 		Vehicle updatedVehicle = this.vehicleRepo.save(getCurrentVehicle);
 		
-		return getCurrentVehicle;
+		return this.modelMapper.map(updatedVehicle, VehicleDto.class);
 	}
 
 	@Override

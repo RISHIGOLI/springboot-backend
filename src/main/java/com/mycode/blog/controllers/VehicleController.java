@@ -46,7 +46,7 @@ public class VehicleController {
 	
 	//post add new vehicle
 	@PostMapping("/user/{userId}/category/{categoryId}/addVehicle")
-	public ApiResponse<VehicleDto> addVehicle(@Valid @RequestBody VehicleDto vehicleDto, @PathVariable Integer userId, @PathVariable Integer categoryId ){
+	public ApiResponse<VehicleDto> addVehicle(@RequestBody VehicleDto vehicleDto, @PathVariable Integer userId, @PathVariable Integer categoryId ){
 		
 		//this.vehicleService.addNewVehicle(vehicle);
 		VehicleDto addVehicle = this.vehicleService.addVehicle(vehicleDto, userId, categoryId);
@@ -86,14 +86,14 @@ public class VehicleController {
 			
 		}
 		
-//		//get all vehicles
-//		@GetMapping("/all")
-//		public ApiResponse<Vehicle> getAllVehicles()
-//		{
-//			List<Vehicle> allVehicles = this.vehicleService.getAllVehicles();
-//			return new ApiResponse<Vehicle>(allVehicles, "Vehicles Found", true, 200);
-//			
-//		}
+		//get all vehicles
+		@GetMapping("/all")
+		public ApiResponse<Vehicle> getAllVehicles()
+		{
+			List<Vehicle> allVehicles = this.vehicleService.getAllVehicles();
+			return new ApiResponse<Vehicle>(allVehicles, "Vehicles Found", true, 200);
+			
+		}
 
 		// get vehicles by user
 		@GetMapping("/getVehiclesByUser/{userId}")
@@ -122,10 +122,10 @@ public class VehicleController {
 		
 		//update vehicle
 		@PutMapping("/updateVehicle/{vehicleId}")
-		public ApiResponse<Vehicle> updateVehicle(@RequestBody Vehicle vehicle, @PathVariable Integer vehicleId)
+		public ApiResponse<VehicleDto> updateVehicle(@RequestBody VehicleDto vehicleDto, @PathVariable Integer vehicleId)
 		{
-			Vehicle updatedVehicle = this.vehicleService.updateVehicle(vehicle, vehicleId);
-			return new ApiResponse<Vehicle>(updatedVehicle, "vehicle updated successfully", true, 200);
+			VehicleDto updatedVehicle = this.vehicleService.updateVehicle(vehicleDto, vehicleId);
+			return new ApiResponse<VehicleDto>(updatedVehicle, "vehicle updated successfully", true, 200);
 			
 		}
 		
@@ -142,18 +142,18 @@ public class VehicleController {
 		private String path;
 		
 		//vehicle image upload
-		@PostMapping("/uploadVehicleImage/{vehicleId}")
-		public ApiResponse<VehicleDto> uploadVehicleImage(@RequestParam("image") MultipartFile image, @PathVariable Integer vehicleId)throws IOException
-		{
-			Vehicle vehicle = this.vehicleService.getVehicleById(vehicleId);
-			String fileName = this.fileService.uploadImage(path, image);
-			
-			vehicle.setVehicleImage(fileName);
-			Vehicle updatedVehicle = this.vehicleService.updateVehicle(vehicle, vehicleId);
-			
-			return new ApiResponse(updatedVehicle, "image added successfully", true, 200);
-			
-		}
+//		@PostMapping("/uploadVehicleImage/{vehicleId}")
+//		public ApiResponse<VehicleDto> uploadVehicleImage(@RequestParam("image") MultipartFile image, @PathVariable Integer vehicleId)throws IOException
+//		{
+//			Vehicle vehicle = this.vehicleService.getVehicleById(vehicleId);
+//			String fileName = this.fileService.uploadImage(path, image);
+//			
+//			vehicle.setVehicleImage(fileName);
+//			VehicleDto updatedVehicle = this.vehicleService.updateVehicle(vehicle, vehicleId);
+//			
+//			return new ApiResponse(updatedVehicle, "image added successfully", true, 200);
+//			
+//		}
 		
 		//method to serve files
 		@GetMapping(value="vehicle/image/{imageName}", produces=MediaType.IMAGE_JPEG_VALUE)

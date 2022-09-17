@@ -79,12 +79,11 @@ public class User implements UserDetails{
 	@Column(name="date_of_birth")
 	private String dob;
 	
-	@JsonManagedReference
-	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	//@JsonManagedReference
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<Vehicle> vehicles = new ArrayList<>();
 	
-	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	private Driver driver;
+	
 	
 
 	@JsonProperty

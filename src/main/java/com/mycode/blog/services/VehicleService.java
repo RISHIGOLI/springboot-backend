@@ -28,7 +28,7 @@ public interface VehicleService {
 
 
 
-	VehicleDto addVehicle(@Valid VehicleDto vehicleDto, Integer userId, Integer categoryId);
+	VehicleDto addVehicle(VehicleDto vehicleDto, Integer userId, Integer categoryId);
 	
 	VehicleResponse getAllVehiclesWithPagination(Integer pageNumber, Integer pageSize, String sortBy, String sortDir);
 
@@ -50,11 +50,17 @@ public interface VehicleService {
 
 
 
-	Vehicle updateVehicle(Vehicle vehicle, Integer vehicleId);
+	
 
 
 
 	List<Vehicle> searchVehiclesByName(String keywords);
+
+
+
+
+
+	VehicleDto updateVehicle(VehicleDto vehicleDto, Integer vehicleId);
 
 
 
