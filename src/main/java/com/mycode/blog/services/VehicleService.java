@@ -18,7 +18,7 @@ public interface VehicleService {
 		
 	//ApiResponse<Vehicle> addNewVehicle(Vehicle vehicle);
 
-	Vehicle getVehicleById(Integer vehicleId);
+	VehicleDto getVehicleById(Integer vehicleId);
 	
 	
 

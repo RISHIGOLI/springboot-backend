@@ -40,6 +40,15 @@ public class UserController {
 		
 	}
 	
+	//get single user by id
+	@GetMapping("/getUserById/{userId}")
+	public ApiResponse<User> getUserById(@PathVariable Integer userId)
+	{
+		User user = this.userService.getUserById(userId);
+		return new ApiResponse<>(user,"user found with id =" + userId, true, 200);
+		
+	}
+	
 	
 //		@PutMapping("/{userId}")
 //		public ResponseEntity<UserDto> updateUser(@Valid @RequestBody UserDto userDto, @PathVariable Integer userId)

@@ -210,8 +210,14 @@ public User updateUser(@Valid User user, Integer userId) {
 	return updatedUser;
 }
 
+@Override
+public User getUserById(Integer userId) {
+	User user = this.userRepo.findById(userId).orElseThrow(() -> new ResourceNotFoundException("User", "id", userId));
+	return user;
+}
 
 
+	
 
 
 	

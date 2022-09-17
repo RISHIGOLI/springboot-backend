@@ -52,10 +52,10 @@ public class VehicleServiceImpl implements VehicleService {
 //	}
 
 	@Override
-	public Vehicle getVehicleById(Integer vehicleId) {
+	public VehicleDto getVehicleById(Integer vehicleId) {
 		// TODO Auto-generated method stub
 		Vehicle vehicle = this.vehicleRepo.findById(vehicleId).orElseThrow(()-> new ResourceNotFoundException("vehicle", "vehicle id", vehicleId));
-		return vehicle;
+		return this.modelMapper.map(vehicle, VehicleDto.class);
 	}
 
 	@Override
@@ -124,6 +124,7 @@ public class VehicleServiceImpl implements VehicleService {
 		getCurrentVehicle.setTransmission(vehicleDto.getTransmission());
 		getCurrentVehicle.setAirCondition(vehicleDto.getAirCondition());
 		getCurrentVehicle.setMileage(vehicleDto.getMileage());
+		getCurrentVehicle.setVehicleImage(vehicleDto.getVehicleImage());
 		
 		
 		Vehicle updatedVehicle = this.vehicleRepo.save(getCurrentVehicle);

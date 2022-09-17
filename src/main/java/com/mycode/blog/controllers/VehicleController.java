@@ -57,10 +57,10 @@ public class VehicleController {
 	
 	//get vehicle detail by id
 		@GetMapping("/vehicles/{vehicleId}")
-		public ApiResponse<Vehicle> getVehicleById(@PathVariable Integer vehicleId)
+		public ApiResponse<VehicleDto> getVehicleById(@PathVariable Integer vehicleId)
 		{
 				//PostDto post = this.postService.getPostById(postId);
-				Vehicle vehicle = this.vehicleService.getVehicleById(vehicleId);
+				VehicleDto vehicle = this.vehicleService.getVehicleById(vehicleId);
 				return new ApiResponse(vehicle,"Vehicle found with vehicleId =" +vehicleId,true,201);
 		}
 		
@@ -142,18 +142,18 @@ public class VehicleController {
 		private String path;
 		
 		//vehicle image upload
-//		@PostMapping("/uploadVehicleImage/{vehicleId}")
-//		public ApiResponse<VehicleDto> uploadVehicleImage(@RequestParam("image") MultipartFile image, @PathVariable Integer vehicleId)throws IOException
-//		{
-//			Vehicle vehicle = this.vehicleService.getVehicleById(vehicleId);
-//			String fileName = this.fileService.uploadImage(path, image);
-//			
-//			vehicle.setVehicleImage(fileName);
-//			VehicleDto updatedVehicle = this.vehicleService.updateVehicle(vehicle, vehicleId);
-//			
-//			return new ApiResponse(updatedVehicle, "image added successfully", true, 200);
-//			
-//		}
+		@PostMapping("/uploadVehicleImage/{vehicleId}")
+		public ApiResponse<VehicleDto> uploadVehicleImage(@RequestParam("image") MultipartFile image, @PathVariable Integer vehicleId)throws IOException
+		{
+			VehicleDto vehicleDto = this.vehicleService.getVehicleById(vehicleId);
+			String fileName = this.fileService.uploadImage(path, image);
+			
+			vehicleDto.setVehicleImage(fileName);
+			VehicleDto updatedVehicle = this.vehicleService.updateVehicle(vehicleDto, vehicleId);
+			
+			return new ApiResponse(updatedVehicle, "image added successfully", true, 200);
+			
+		}
 		
 		//method to serve files
 		@GetMapping(value="vehicle/image/{imageName}", produces=MediaType.IMAGE_JPEG_VALUE)
