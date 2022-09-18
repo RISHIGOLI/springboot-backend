@@ -44,16 +44,24 @@ public class VehicleController {
 	private FileService fileService;
 	
 	
-	//post add new vehicle
+	//post add new vehicle ()
+//	@PostMapping("/user/{userId}/category/{categoryId}/addVehicle")
+//	public ApiResponse<VehicleDto> addVehicle(@RequestBody VehicleDto vehicleDto, @PathVariable Integer userId, @PathVariable Integer categoryId ){
+//		
+//		//this.vehicleService.addNewVehicle(vehicle);
+//		VehicleDto addVehicle = this.vehicleService.addVehicle(vehicleDto, userId, categoryId);
+//		return new ApiResponse(addVehicle,"Vehicle registered successfully.",true,201);
+//	}
+	//below code will add a vehicle just response format changed recent is above
 	@PostMapping("/user/{userId}/category/{categoryId}/addVehicle")
-	public ApiResponse<VehicleDto> addVehicle(@RequestBody VehicleDto vehicleDto, @PathVariable Integer userId, @PathVariable Integer categoryId ){
-		
-		//this.vehicleService.addNewVehicle(vehicle);
+	public ResponseEntity<VehicleDto> addVehicle(@RequestBody VehicleDto vehicleDto, @PathVariable Integer userId, @PathVariable Integer categoryId)
+	{
 		VehicleDto addVehicle = this.vehicleService.addVehicle(vehicleDto, userId, categoryId);
-		return new ApiResponse(addVehicle,"Vehicle registered successfully.",true,201);
+		
+		return new ResponseEntity<VehicleDto>(addVehicle, HttpStatus.CREATED);
+		
 	}
-	
-	
+
 	
 	//get vehicle detail by id
 		@GetMapping("/vehicles/{vehicleId}")
