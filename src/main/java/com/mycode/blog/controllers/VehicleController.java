@@ -95,11 +95,19 @@ public class VehicleController {
 		}
 		
 		//get all vehicles
+//		@GetMapping("/all")
+//		public ApiResponse<Vehicle> getAllVehicles()
+//		{
+//			List<Vehicle> allVehicles = this.vehicleService.getAllVehicles();
+//			return new ApiResponse<Vehicle>(allVehicles, "Vehicles Found", true, 200);
+//			
+//		}
+		
 		@GetMapping("/all")
-		public ApiResponse<Vehicle> getAllVehicles()
+		public ResponseEntity<List<VehicleDto>> getAllVehicles()
 		{
-			List<Vehicle> allVehicles = this.vehicleService.getAllVehicles();
-			return new ApiResponse<Vehicle>(allVehicles, "Vehicles Found", true, 200);
+			List<VehicleDto> allVehicles = this.vehicleService.getAllVehicles();
+			return new ResponseEntity<List<VehicleDto>>(allVehicles, HttpStatus.OK);
 			
 		}
 

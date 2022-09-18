@@ -42,7 +42,7 @@ public interface VehicleService {
 
 
 
-	List<Vehicle> getAllVehicles();
+	List<VehicleDto> getAllVehicles();
 
 
 

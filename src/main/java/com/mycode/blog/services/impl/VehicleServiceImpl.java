@@ -95,10 +95,10 @@ public class VehicleServiceImpl implements VehicleService {
 	
 	// get all vehicles
 	@Override
-	public List<Vehicle> getAllVehicles() {
+	public List<VehicleDto> getAllVehicles() {
 		List<Vehicle> allVehicles = this.vehicleRepo.findAll();
-		
-		return allVehicles;
+		List<VehicleDto> vehicleDtos = allVehicles.stream().map((vehicle)->this.modelMapper.map(vehicle,VehicleDto.class)).collect(Collectors.toList());
+		return vehicleDtos;
 	}
 
 	//get vehicles by user
