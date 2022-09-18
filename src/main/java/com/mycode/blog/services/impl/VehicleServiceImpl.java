@@ -153,11 +153,19 @@ public class VehicleServiceImpl implements VehicleService {
 		Page<Vehicle> pageVehicle = this.vehicleRepo.findAll(p);
 		List<Vehicle> allVehicles = pageVehicle.getContent();
 		
-		List<Vehicle> vehicles = allVehicles.stream().collect(Collectors.toList());
+//		List<Vehicle> vehicles = allVehicles.stream().collect(Collectors.toList());
+		List<VehicleDto> vehicleDtos = allVehicles.stream().map((vehicle)->this.modelMapper.map(vehicle, VehicleDto.class)).collect(Collectors.toList());
 		
 		VehicleResponse vehicleResponse = new VehicleResponse();
 		
-		vehicleResponse.setContent(vehicles);
+//		vehicleResponse.setContent(vehicles);
+//		vehicleResponse.setPageNumber(pageVehicle.getNumber());
+//		vehicleResponse.setPageSize(pageVehicle.getSize());
+//		vehicleResponse.setTotalElements(pageVehicle.getTotalElements());
+//		vehicleResponse.setTotalPages(pageVehicle.getTotalPages());
+//		vehicleResponse.setLastPage(pageVehicle.isLast());
+		
+		vehicleResponse.setContent(vehicleDtos);
 		vehicleResponse.setPageNumber(pageVehicle.getNumber());
 		vehicleResponse.setPageSize(pageVehicle.getSize());
 		vehicleResponse.setTotalElements(pageVehicle.getTotalElements());

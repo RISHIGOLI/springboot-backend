@@ -13,7 +13,7 @@ import lombok.Setter;
 @Setter	
 public class VehicleResponse {
 	
-	private List<Vehicle> content;
+	private List<VehicleDto> content;
 	
 	private int pageNumber;
 	

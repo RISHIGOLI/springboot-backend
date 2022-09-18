@@ -113,20 +113,31 @@ public class VehicleController {
 		}
 		
 		//get vehicles with pagination
+//		@GetMapping("/getAllVehiclesWithPagination")
+//		public ApiResponse<VehicleResponse> getAllVehiclesWithPagination(
+//				@RequestParam(value="pageNumber", defaultValue = AppConstants.PAGE_NUMBER, required = false) Integer pageNumber,
+//				@RequestParam(value="pageSize", defaultValue = AppConstants.PAGE_SIZE, required = false) Integer pageSize,
+//				@RequestParam(value="sortBy", defaultValue = AppConstants.SORT_BY, required = false) String sortBy,
+//				@RequestParam(value="sortDir", defaultValue = AppConstants.SORT_DIR, required = false) String sortDir
+//				)
+//		{
+//			VehicleResponse vehicleResponse = this.vehicleService.getAllVehiclesWithPagination(pageNumber, pageSize, sortBy, sortDir);
+//			return new ApiResponse(vehicleResponse, "vehicles found", true, 200);
+//			
+//			
+//		}
 		@GetMapping("/getAllVehiclesWithPagination")
-		public ApiResponse<VehicleResponse> getAllVehiclesWithPagination(
+		public ResponseEntity<VehicleResponse> getAllVehiclesWithPagination(
 				@RequestParam(value="pageNumber", defaultValue = AppConstants.PAGE_NUMBER, required = false) Integer pageNumber,
 				@RequestParam(value="pageSize", defaultValue = AppConstants.PAGE_SIZE, required = false) Integer pageSize,
 				@RequestParam(value="sortBy", defaultValue = AppConstants.SORT_BY, required = false) String sortBy,
 				@RequestParam(value="sortDir", defaultValue = AppConstants.SORT_DIR, required = false) String sortDir
 				)
 		{
-			VehicleResponse vehicleResponse = this.vehicleService.getAllVehiclesWithPagination(pageNumber, pageSize, sortBy, sortDir);
-			return new ApiResponse(vehicleResponse, "vehicles found", true, 200);
-			
+			VehicleResponse vehicleResponse = this.vehicleService.getAllVehiclesWithPagination(pageNumber,pageSize,sortBy,sortDir);
+			return new ResponseEntity<VehicleResponse>(vehicleResponse, HttpStatus.OK);
 			
 		}
-		
 		
 		//update vehicle
 		@PutMapping("/updateVehicle/{vehicleId}")
