@@ -3,6 +3,8 @@ package com.mycode.blog.repositories;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import com.mycode.blog.entities.Category;
 import com.mycode.blog.entities.User;
@@ -15,4 +17,9 @@ public interface VehicleRepo extends JpaRepository<Vehicle, Integer>{
 	List<Vehicle> findByUser(User user);
 	
 	List<Vehicle> findByModelContaining(String name);
+
+	List<Vehicle> findByCityContaining(String city);
+	
+	@Query("select v from Vehicle v where v.city=:city and v.category.id=:categoryId")
+	List<Vehicle> findByCityandCategory(@Param ("city") String city, @Param("categoryId") Integer category_id);
 }

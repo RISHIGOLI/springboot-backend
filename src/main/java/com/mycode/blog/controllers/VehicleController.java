@@ -166,17 +166,27 @@ public class VehicleController {
 			
 		}
 		
+		
+		// get vehicle by city
+		@GetMapping("/searchVehicleByCity/{city}")
+		public ApiResponse<List<VehicleDto>> searchVehicleByCity(@PathVariable("city") String city)
+		{
+			List<VehicleDto> result = this.vehicleService.searchVehicleByCity(city);
+			return new ApiResponse<List<VehicleDto>>(result, "vehicles found with giver city", true, 200);
+			
+		}
+		
 		@Value("${project.image}")
 		private String path;
 		
 		//vehicle image upload
 		@PostMapping("/uploadVehicleImage/{vehicleId}")
-		public ApiResponse<VehicleDto> uploadVehicleImage(@RequestParam("images") MultipartFile[] image, @PathVariable Integer vehicleId)throws IOException
+		public ApiResponse<VehicleDto> uploadVehicleImage(@RequestParam("image") MultipartFile image, @PathVariable Integer vehicleId)throws IOException
 		{
 			VehicleDto vehicleDto = this.vehicleService.getVehicleById(vehicleId);
-			List<String> fileNames = this.fileService.uploadImage(path, image);
+			String fileName = this.fileService.uploadImage(path, image);
 			
-			vehicleDto.setVehicleImage(fileNames);
+			vehicleDto.setVehicleImage(fileName);
 			VehicleDto updatedVehicle = this.vehicleService.updateVehicle(vehicleDto, vehicleId);
 			
 			return new ApiResponse(updatedVehicle, "image added successfully", true, 200);
@@ -204,6 +214,16 @@ public class VehicleController {
 			return new ApiResponse(updatedVehicle, "image added successfully", true, 200);
 			
 		}
+		
+		@GetMapping("/getVehiclesByCityandCategory/city/{city}/category/{categoryId}")
+		public ApiResponse<List<VehicleDto>> getVehiclesByCityandCategory(@PathVariable("city") String city, @PathVariable Integer categoryId)
+		{
+			List<VehicleDto> vehicleDtos = this.vehicleService.getVehiclesByCityandCategory(city, categoryId);
+			return new ApiResponse<>(vehicleDtos, "vehicles found", true, 200);
+			
+		}
+		
+		
 	
 
 }

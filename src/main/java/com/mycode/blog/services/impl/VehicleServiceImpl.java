@@ -175,9 +175,30 @@ public class VehicleServiceImpl implements VehicleService {
 		
 		return vehicleResponse;
 	}
+
+	// get vehicle by city name
+	@Override
+	public List<VehicleDto> searchVehicleByCity(String city) {
+		// TODO Auto-generated method stub
+		List<Vehicle> vehicles = this.vehicleRepo.findByCityContaining(city);
+		List<VehicleDto> vehicleDtos = vehicles.stream().map((vehicle)-> this.modelMapper.map(vehicle, VehicleDto.class)).collect(Collectors.toList());
+		
+		return vehicleDtos;
+	}
+
+
+	// get vehicle by city and category
+	@Override
+	public List<VehicleDto> getVehiclesByCityandCategory(String city, Integer categoryId) {
+		// TODO Auto-generated method stub
+		List<Vehicle> vehicles = this.vehicleRepo.findByCityandCategory(city, categoryId);
+		List<VehicleDto> vehicleDtos = vehicles.stream().map((vehicle)-> this.modelMapper.map(vehicle, VehicleDto.class)).collect(Collectors.toList());
+		return vehicleDtos;
+	}
 	
 
-
+	
+	
 	
 	
 	

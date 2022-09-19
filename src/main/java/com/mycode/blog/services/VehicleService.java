@@ -66,6 +66,18 @@ public interface VehicleService {
 
 
 
+	List<VehicleDto> searchVehicleByCity(String city);
+
+
+
+
+
+	List<VehicleDto> getVehiclesByCityandCategory(String city, Integer categoryId);
+
+
+
+
+
 	//VehicleDto updateVehicle(Vehicle vehicle, Integer vehicleId);
 
 
