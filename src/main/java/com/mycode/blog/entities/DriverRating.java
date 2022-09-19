@@ -26,7 +26,7 @@ public class DriverRating {
 	
 	private int d_noOfStars;
 	
-	@JsonBackReference
+//	@JsonBackReference
 	@ManyToOne
 	private Driver driver;
 }

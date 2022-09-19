@@ -20,16 +20,18 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
 @Table(name="vehicles")
 @Getter
 @Setter
+@NoArgsConstructor
 public class Vehicle {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
 	@Column
@@ -77,8 +79,8 @@ public class Vehicle {
 	
 	//whole object mapping
 	//@JsonBackReference
-	@ManyToOne
-	@Cascade(CascadeType.ALL)
+	//@Cascade(CascadeType.ALL)
+	@ManyToOne	
 	@JoinColumn(name="category_id")
 	private Category category;
 	

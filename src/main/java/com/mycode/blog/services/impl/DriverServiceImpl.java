@@ -42,6 +42,7 @@ public class DriverServiceImpl implements DriverService{
 		
 		Driver driver = this.modelMapper.map(driverDto, Driver.class);
 		driver.setDriverCategory(driverCategory);
+		driver.setUser(user);
 		
 		
 		Driver newDriver = this.driverRepo.save(driver);
@@ -67,6 +68,13 @@ public class DriverServiceImpl implements DriverService{
 		getCurrentDriver.setD_knownLanguages(driver.getD_knownLanguages());
 		getCurrentDriver.setD_ridingExperience(driver.getD_ridingExperience());
 		getCurrentDriver.setDriverCategory(driver.getDriverCategory());
+		getCurrentDriver.setD_firstName(driver.getD_firstName());
+		getCurrentDriver.setD_lastName(driver.getD_lastName());
+		getCurrentDriver.setD_address(driver.getD_address());
+		getCurrentDriver.setD_city(driver.getD_city());
+		getCurrentDriver.setD_dob(driver.getD_dob());
+		getCurrentDriver.setD_gender(driver.getD_gender());
+		getCurrentDriver.setDriverImage(driver.getDriverImage());
 		
 		Driver updatedDriver = this.driverRepo.save(getCurrentDriver);
 		return updatedDriver;
