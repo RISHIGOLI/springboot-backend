@@ -125,6 +125,7 @@ public class VehicleServiceImpl implements VehicleService {
 		getCurrentVehicle.setAirCondition(vehicleDto.getAirCondition());
 		getCurrentVehicle.setMileage(vehicleDto.getMileage());
 		getCurrentVehicle.setVehicleImage(vehicleDto.getVehicleImage());
+		getCurrentVehicle.setVehicleRCImage(vehicleDto.getVehicleRCImage());
 		
 		
 		Vehicle updatedVehicle = this.vehicleRepo.save(getCurrentVehicle);

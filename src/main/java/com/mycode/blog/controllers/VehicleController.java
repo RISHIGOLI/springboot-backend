@@ -28,6 +28,7 @@ import com.mycode.blog.config.AppConstants;
 import com.mycode.blog.entities.ApiResponse;
 import com.mycode.blog.entities.Category;
 import com.mycode.blog.entities.Vehicle;
+import com.mycode.blog.payloads.DriverDto;
 import com.mycode.blog.payloads.VehicleDto;
 import com.mycode.blog.payloads.VehicleResponse;
 import com.mycode.blog.services.FileService;
@@ -170,12 +171,12 @@ public class VehicleController {
 		
 		//vehicle image upload
 		@PostMapping("/uploadVehicleImage/{vehicleId}")
-		public ApiResponse<VehicleDto> uploadVehicleImage(@RequestParam("image") MultipartFile image, @PathVariable Integer vehicleId)throws IOException
+		public ApiResponse<VehicleDto> uploadVehicleImage(@RequestParam("images") MultipartFile[] image, @PathVariable Integer vehicleId)throws IOException
 		{
 			VehicleDto vehicleDto = this.vehicleService.getVehicleById(vehicleId);
-			String fileName = this.fileService.uploadImage(path, image);
+			List<String> fileNames = this.fileService.uploadImage(path, image);
 			
-			vehicleDto.setVehicleImage(fileName);
+			vehicleDto.setVehicleImage(fileNames);
 			VehicleDto updatedVehicle = this.vehicleService.updateVehicle(vehicleDto, vehicleId);
 			
 			return new ApiResponse(updatedVehicle, "image added successfully", true, 200);
@@ -191,8 +192,18 @@ public class VehicleController {
 			StreamUtils.copy(resource, response.getOutputStream());
 		}
 		
-//		
-//		
+		//upload vehicle RC Image
+		@PostMapping("/uploadVehicleRCImage/{vehicleId}")
+		public ApiResponse<VehicleDto> uploadVehicleRCImage(@RequestParam("image") MultipartFile image, @PathVariable Integer vehicleId)throws IOException
+		{
+			VehicleDto vehicleDto = this.vehicleService.getVehicleById(vehicleId);
+			String fileName = this.fileService.uploadImage(path, image);
+			
+			vehicleDto.setVehicleRCImage(fileName);
+			VehicleDto updatedVehicle = this.vehicleService.updateVehicle(vehicleDto, vehicleId);
+			return new ApiResponse(updatedVehicle, "image added successfully", true, 200);
+			
+		}
 	
 
 }

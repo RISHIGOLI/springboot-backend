@@ -37,4 +37,6 @@ public class VehicleDto {
 	private Category category;
 	
 	private String vehicleImage;
+	
+	private String vehicleRCImage;
 }
