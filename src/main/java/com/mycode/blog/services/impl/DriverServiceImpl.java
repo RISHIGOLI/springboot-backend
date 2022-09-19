@@ -60,24 +60,24 @@ public class DriverServiceImpl implements DriverService{
 
 	//update driver
 	@Override
-	public Driver updateDriver(Driver driver, Integer driverId) {
+	public DriverDto updateDriver(DriverDto driverDto, Integer driverId) {
 		Driver getCurrentDriver = this.driverRepo.findById(driverId).orElseThrow(()-> new ResourceNotFoundException("driver", "driver id", driverId));
-		getCurrentDriver.setD_altMobNo(driver.getD_altMobNo());
-		getCurrentDriver.setD_bloodGroup(driver.getD_bloodGroup());
-		getCurrentDriver.setD_education(driver.getD_education());
-		getCurrentDriver.setD_knownLanguages(driver.getD_knownLanguages());
-		getCurrentDriver.setD_ridingExperience(driver.getD_ridingExperience());
-		getCurrentDriver.setDriverCategory(driver.getDriverCategory());
-		getCurrentDriver.setD_firstName(driver.getD_firstName());
-		getCurrentDriver.setD_lastName(driver.getD_lastName());
-		getCurrentDriver.setD_address(driver.getD_address());
-		getCurrentDriver.setD_city(driver.getD_city());
-		getCurrentDriver.setD_dob(driver.getD_dob());
-		getCurrentDriver.setD_gender(driver.getD_gender());
-		getCurrentDriver.setDriverImage(driver.getDriverImage());
+		getCurrentDriver.setD_altMobNo(driverDto.getD_altMobNo());
+		getCurrentDriver.setD_bloodGroup(driverDto.getD_bloodGroup());
+		getCurrentDriver.setD_education(driverDto.getD_education());
+		getCurrentDriver.setD_knownLanguages(driverDto.getD_knownLanguages());
+		getCurrentDriver.setD_ridingExperience(driverDto.getD_ridingExperience());
+		getCurrentDriver.setDriverCategory(driverDto.getDriverCategory());
+		getCurrentDriver.setD_firstName(driverDto.getD_firstName());
+		getCurrentDriver.setD_lastName(driverDto.getD_lastName());
+		getCurrentDriver.setD_address(driverDto.getD_address());
+		getCurrentDriver.setD_city(driverDto.getD_city());
+		getCurrentDriver.setD_dob(driverDto.getD_dob());
+		getCurrentDriver.setD_gender(driverDto.getD_gender());
+		getCurrentDriver.setDriverImage(driverDto.getDriverImage());
 		
 		Driver updatedDriver = this.driverRepo.save(getCurrentDriver);
-		return updatedDriver;
+		return this.modelMapper.map(updatedDriver, DriverDto.class);
 	}
 
 	//get all drivers
@@ -86,5 +86,14 @@ public class DriverServiceImpl implements DriverService{
 		List<Driver> allDrivers = this.driverRepo.findAll();
 		return allDrivers;
 	}
+
+	// get driver by id
+	@Override
+	public DriverDto getDriverById(Integer driverId) {
+		Driver driver = this.driverRepo.findById(driverId).orElseThrow(()-> new ResourceNotFoundException("driver", "driver id", driverId));
+		return this.modelMapper.map(driver, DriverDto.class);
+	}
+	
+	
 
 }

@@ -16,8 +16,10 @@ public interface DriverService {
 
 	void deleteDriver(Integer driverId);
 
-	Driver updateDriver(Driver driver, Integer driverId);
+	DriverDto updateDriver(DriverDto driverDto, Integer driverId);
 
 	List<Driver> getAllDrivers();
+
+	DriverDto getDriverById(Integer driverId);
 	
 }
