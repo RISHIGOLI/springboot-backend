@@ -35,8 +35,8 @@ public class UserController {
 	public ApiResponse<User> updateUser(@Valid @RequestBody User user, @PathVariable Integer userId)
 	{
 	
-		User updatedUser = this.userService.updateUser(user, userId);
-		return new ApiResponse<User>(updatedUser, "user updated successfully", true, 200);
+		ApiResponse<User> updatedUser = this.userService.updateUser(user, userId);
+		return new ApiResponse<>("user updated successfully", true, 200);
 		
 	}
 	

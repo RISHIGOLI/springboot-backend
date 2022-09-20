@@ -193,9 +193,30 @@ public ApiResponse<User> findByEmail(String email) {
 	
 }
 
+//@Override
+//public User updateUser(@Valid User user, Integer userId) {
+//	User user2 = this.userRepo.findById(userId).orElseThrow(() -> new ResourceNotFoundException("User", "id", userId));
+//	user2.setFirstName(user.getFirstName());
+//	user2.setLastName(user.getLastName());
+//	user2.setMobile(user.getMobile());
+//	user2.setGender(user.getGender());
+//	user2.setAddress(user.getAddress());
+//	user2.setPassword(this.passwordEncoder.encode(user.getPassword()));
+//	user2.setDob(user.getDob());
+//	user2.setCity(user.getCity());
+//	
+//	User updatedUser = this.userRepo.save(user2);
+//	
+//	return updatedUser;
+//}
+
 @Override
-public User updateUser(@Valid User user, Integer userId) {
+public ApiResponse<User> updateUser(@Valid User user, Integer userId) {
 	User user2 = this.userRepo.findById(userId).orElseThrow(() -> new ResourceNotFoundException("User", "id", userId));
+	if(!user.getPassword().equals(user2.getPassword())) {
+		return new ApiResponse(user,"User password incorrect",false,402);
+	}else
+	{
 	user2.setFirstName(user.getFirstName());
 	user2.setLastName(user.getLastName());
 	user2.setMobile(user.getMobile());
@@ -205,9 +226,11 @@ public User updateUser(@Valid User user, Integer userId) {
 	user2.setDob(user.getDob());
 	user2.setCity(user.getCity());
 	
-	User updatedUser = this.userRepo.save(user2);
+	this.userRepo.save(user2);
+	return new ApiResponse<User>(user,"User updatedsuccessfully",true,200);
+	}
 	
-	return updatedUser;
+	
 }
 
 @Override

@@ -10,7 +10,9 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.util.StreamUtils;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,6 +29,7 @@ import com.mycode.blog.entities.ApiResponse;
 import com.mycode.blog.entities.Driver;
 import com.mycode.blog.entities.Vehicle;
 import com.mycode.blog.payloads.DriverDto;
+import com.mycode.blog.payloads.VehicleDto;
 import com.mycode.blog.services.DriverService;
 import com.mycode.blog.services.FileService;
 
@@ -42,10 +45,10 @@ public class DriverController {
 	
 	//add new driver
 	@PostMapping("/user/{userId}/category/{d_categoryId}/enrollAsDriver")
-	public ApiResponse<DriverDto> enrollAsDriver(@Valid @RequestBody DriverDto driverDto, @PathVariable Integer userId, @PathVariable Integer d_categoryId)
+	public ResponseEntity<DriverDto> enrollAsDriver(@Valid @RequestBody DriverDto driverDto, @PathVariable Integer userId, @PathVariable Integer d_categoryId)
 	{
 		DriverDto addedDriver = this.driverService.enrollAsDriver(driverDto, userId, d_categoryId);
-		return new ApiResponse(addedDriver, "driver added successfully", true, 201);
+		return new ResponseEntity<DriverDto>(addedDriver, HttpStatus.CREATED);
 		
 	}
 	
