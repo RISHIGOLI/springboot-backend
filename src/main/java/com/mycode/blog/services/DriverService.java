@@ -27,5 +27,7 @@ public interface DriverService {
 
 	DriverResponse getAllDriversByCityAndCategoryWithPagination(Integer pageNumber, Integer pageSize, String sortBy,
 			String sortDir, String d_city, Integer d_categoryId);
+
+	List<Driver> getDriversByUser(Integer userId);
 	
 }

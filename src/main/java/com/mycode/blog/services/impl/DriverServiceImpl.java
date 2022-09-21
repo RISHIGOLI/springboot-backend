@@ -144,6 +144,25 @@ public class DriverServiceImpl implements DriverService{
 		return driverResponse;
 		
 	}
+
+	//get drivers added by user with user id
+	@Override
+	public List<Driver> getDriversByUser(Integer userId) {
+		User user = this.userRepo.findById(userId).orElseThrow(()-> new ResourceNotFoundException("user", "user id", userId));
+		
+		List<Driver> drivers = this.driverRepo.findByUser(user);
+		return drivers.stream().collect(Collectors.toList());
+	}
+	
+	
+	
+//	public List<Vehicle> getVehiclesByUser(Integer userId) {
+//		User user = this.userRepo.findById(userId).orElseThrow(()-> new ResourceNotFoundException("user", "user id", userId));
+//		
+//		List<Vehicle> vehicles = this.vehicleRepo.findByUser(user);
+//		return vehicles.stream().collect(Collectors.toList());
+//	}
+	
 	
 	
 	

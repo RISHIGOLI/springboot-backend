@@ -89,6 +89,24 @@ public class DriverController {
 		return new ApiResponse<DriverDto>(driver, "driver found with driver id = "+driverId, true, 201);
 		
 	}
+	
+	//get drivers by user
+	@GetMapping("/getDriversByUser/{userId}")
+	public ApiResponse<List<Driver>> getDriversByUser(@PathVariable Integer userId)
+	{
+		List<Driver> drivers = this.driverService.getDriversByUser(userId);
+		return new ApiResponse<>(drivers, "drivers found by user with user Id = "+userId, true, 200);
+		
+		
+		
+	}
+//	@GetMapping("/getVehiclesByUser/{userId}")
+//	public ApiResponse<List<Vehicle>> getVehiclesByUser(@PathVariable Integer userId)
+//	{
+//		List<Vehicle> vehicles = this.vehicleService.getVehiclesByUser(userId);
+//		
+//		
+//	}
 
 	
 	// upload driver image
