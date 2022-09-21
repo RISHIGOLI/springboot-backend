@@ -69,7 +69,15 @@ public class Driver {
 	@Column
 	private String driverImage;
 	
+	@Column
+	private String driverFitnessCertificateImage;
 	
+	@Column
+	private String driverAgreementImage;
+	
+	@Column
+	private String drivingLicenseImage;
+		
 	//@JsonBackReference
 	//@Cascade(CascadeType.ALL)
 	@ManyToOne	
@@ -233,12 +241,31 @@ public class Driver {
 	public void setDriverImage(String driverImage) {
 		this.driverImage = driverImage;
 	}
+			
+	public String getDriverFitnessCertificateImage() {
+		return driverFitnessCertificateImage;
+	}
 	
+	public void setDriverFitnessCertificateImage(String driverFitnessCertificateImage) {
+		this.driverFitnessCertificateImage = driverFitnessCertificateImage;
+	}
 	
+	public String getDriverAgreementImage() {
+		return driverAgreementImage;
+	}
 
+	public void setDriverAgreementImage(String driverAgreementImage) {
+		this.driverAgreementImage = driverAgreementImage;
+	}
 	
-	
-	
+	public String getDrivingLicenseImage() {
+		return drivingLicenseImage;
+	}
+
+	public void setDrivingLicenseImage(String drivingLicenseImage) {
+		this.drivingLicenseImage = drivingLicenseImage;
+	}
+
 	public Driver(int d_id, String d_bloodGroup, String d_altMobNo, String d_ridingExperience, String d_ratings,
 			String d_education, String d_knownLanguages, String d_firstName, String d_lastName, String d_address,
 			String d_city, String d_dob, String d_gender, String driverImage, DriverCategory driverCategory) {

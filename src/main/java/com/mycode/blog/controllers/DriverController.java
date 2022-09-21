@@ -102,7 +102,47 @@ public class DriverController {
 		
 		driverDto.setDriverImage(fileName);
 		DriverDto updatedDriver = this.driverService.updateDriver(driverDto, driverId);
-		return new ApiResponse<DriverDto>(updatedDriver, "image added successfully", true, 200);
+		return new ApiResponse<DriverDto>(updatedDriver, "driver image added successfully", true, 200);
+	}
+	
+	//upload driver fitness certificate image
+	@PostMapping("/uploadDriverFitnessCertificateImage/{driverId}")
+	public ApiResponse<DriverDto> uploadDriverFitnessCertificateImage(@RequestParam("image") MultipartFile image, @PathVariable Integer driverId) throws IOException
+	{
+		DriverDto driverDto = this.driverService.getDriverById(driverId);
+		String fileName = this.fileService.uploadImage(path, image);
+		
+		driverDto.setDriverFitnessCertificateImage(fileName);
+		DriverDto updatedDriver = this.driverService.updateDriver(driverDto, driverId);
+		
+		return new ApiResponse<DriverDto>(updatedDriver, "driver fitness certificate image added successfully", true, 200);
+		
+	}
+	
+	//upload driver agreement image
+	@PostMapping("/uploadDriverAgreementImage/{driverId}")
+	public ApiResponse<DriverDto> uploadDriverAgreementImage(@RequestParam("image") MultipartFile image,@PathVariable Integer driverId) throws IOException
+	{
+		DriverDto driverDto = this.driverService.getDriverById(driverId);
+		String fileName = this.fileService.uploadImage(path, image);
+		
+		driverDto.setDriverAgreementImage(fileName);
+		DriverDto updatedDriver = this.driverService.updateDriver(driverDto, driverId);
+		return new ApiResponse<DriverDto>(updatedDriver, "driver agreement uploaded successfully", true, 200);
+		
+	}
+	
+	//upload driving license image
+	@PostMapping("/uploadDrivingLicenseImage/{driverId}")
+	public ApiResponse<DriverDto> uploadDrivingLicenseImage(@RequestParam("image") MultipartFile image, @PathVariable Integer driverId) throws IOException
+	{
+		DriverDto driverDto = this.driverService.getDriverById(driverId);
+		String fileName = this.fileService.uploadImage(path, image);
+		
+		driverDto.setDrivingLicenseImage(fileName);
+		DriverDto updatedDriver = this.driverService.updateDriver(driverDto, driverId);
+		return new ApiResponse<DriverDto>(updatedDriver, "driving license uploaded successfully", true, 200);
+		
 	}
 	
 	// download image or method to serve file

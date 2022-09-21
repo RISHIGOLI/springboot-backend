@@ -51,4 +51,10 @@ public class DriverDto {
 	private String d_gender;
 	
 	private String driverImage;
+	
+	private String driverFitnessCertificateImage;
+	
+	private String driverAgreementImage;
+	
+	private String drivingLicenseImage;
 }

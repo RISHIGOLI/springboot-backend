@@ -75,6 +75,9 @@ public class DriverServiceImpl implements DriverService{
 		getCurrentDriver.setD_dob(driverDto.getD_dob());
 		getCurrentDriver.setD_gender(driverDto.getD_gender());
 		getCurrentDriver.setDriverImage(driverDto.getDriverImage());
+		getCurrentDriver.setDriverFitnessCertificateImage(driverDto.getDriverFitnessCertificateImage());
+		getCurrentDriver.setDriverAgreementImage(driverDto.getDriverAgreementImage());
+		getCurrentDriver.setDrivingLicenseImage(driverDto.getDrivingLicenseImage());
 		
 		Driver updatedDriver = this.driverRepo.save(getCurrentDriver);
 		return this.modelMapper.map(updatedDriver, DriverDto.class);
