@@ -25,10 +25,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.mycode.blog.config.AppConstants;
 import com.mycode.blog.entities.ApiResponse;
 import com.mycode.blog.entities.Driver;
 import com.mycode.blog.entities.Vehicle;
 import com.mycode.blog.payloads.DriverDto;
+import com.mycode.blog.payloads.DriverResponse;
 import com.mycode.blog.payloads.VehicleDto;
 import com.mycode.blog.services.DriverService;
 import com.mycode.blog.services.FileService;
@@ -155,6 +157,45 @@ public class DriverController {
 		StreamUtils.copy(resource, response.getOutputStream());
 	}
 	
+	// get drivers by city and category
+	@GetMapping("/getDriversByCityAndCategory/city/{d_city}/category/{d_categoryId}")
+	public ApiResponse<List<DriverDto>> getDriversByCityAndCategory(@PathVariable String d_city, @PathVariable Integer d_categoryId)
+	{
+//		List<VehicleDto> vehicleDtos = this.vehicleService.getVehiclesByCityandCategory(city, categoryId);
+		List<DriverDto> driverDtos = this.driverService.getDriversByCityAndCategory(d_city,d_categoryId);
+		return new ApiResponse<>(driverDtos, "drivers found", true, 200);
+		
+	}
+	
+	//get drivers by city and category with pagination
+	@GetMapping("/getAllDriversByCityAndCategoryWithPagination/city/{d_city}/category/{d_categoryId}")
+	public ResponseEntity<DriverResponse> getAllDriversByCityAndCategoryWithPagination(
+			@RequestParam(value="pageNumber", defaultValue = AppConstants.PAGE_NUMBER, required = false) Integer pageNumber,
+			@RequestParam(value="pageSize", defaultValue = AppConstants.PAGE_SIZE, required = false) Integer pageSize,
+			@RequestParam(value="sortBy", defaultValue = AppConstants.SORT_BY, required = false) String sortBy,
+			@RequestParam(value="sortDir", defaultValue = AppConstants.SORT_DIR, required = false) String sortDir,
+			@PathVariable("d_city") String d_city,
+			@PathVariable Integer d_categoryId
+			)
+	{
+		DriverResponse driverResponse = this.driverService.getAllDriversByCityAndCategoryWithPagination(pageNumber,pageSize,sortBy,sortDir,d_city,d_categoryId);
+		return new ResponseEntity<DriverResponse>(driverResponse, HttpStatus.OK);
+		
+	}
+//	@GetMapping("/getAllVehiclesByCityAndCategoryWithPagination/city/{city}/category/{categoryId}")
+//	public ResponseEntity<VehicleResponse> getAllVehiclesByCityAndCategoryWithPagination(
+//			@RequestParam(value="pageNumber", defaultValue = AppConstants.PAGE_NUMBER, required = false) Integer pageNumber,
+//			@RequestParam(value="pageSize", defaultValue = AppConstants.PAGE_SIZE, required = false) Integer pageSize,
+//			@RequestParam(value="sortBy", defaultValue = AppConstants.SORT_BY, required = false) String sortBy,
+//			@RequestParam(value="sortDir", defaultValue = AppConstants.SORT_DIR, required = false) String sortDir,
+//			@PathVariable("city") String city,
+//			@PathVariable Integer categoryId				
+//			)
+//	{
+//		VehicleResponse vehicleResponse = this.vehicleService.getAllVehiclesByCityAndCategoryWithPagination(pageNumber,pageSize,sortBy,sortDir,city,categoryId);
+//		return new ResponseEntity<VehicleResponse>(vehicleResponse, HttpStatus.OK);
+//					
+//	}
 	
 
 }

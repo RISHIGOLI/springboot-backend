@@ -1,11 +1,16 @@
 package com.mycode.blog.services.impl;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
 
 import com.mycode.blog.entities.Driver;
@@ -13,6 +18,9 @@ import com.mycode.blog.entities.DriverCategory;
 import com.mycode.blog.entities.User;
 import com.mycode.blog.exceptions.ResourceNotFoundException;
 import com.mycode.blog.payloads.DriverDto;
+import com.mycode.blog.payloads.DriverResponse;
+import com.mycode.blog.payloads.VehicleDto;
+import com.mycode.blog.payloads.VehicleResponse;
 import com.mycode.blog.repositories.DriverCategoryRepo;
 import com.mycode.blog.repositories.DriverRepo;
 import com.mycode.blog.repositories.UserRepo;
@@ -96,6 +104,48 @@ public class DriverServiceImpl implements DriverService{
 		Driver driver = this.driverRepo.findById(driverId).orElseThrow(()-> new ResourceNotFoundException("driver", "driver id", driverId));
 		return this.modelMapper.map(driver, DriverDto.class);
 	}
+
+	//get drivers by city and category
+	@Override
+	public List<DriverDto> getDriversByCityAndCategory(String d_city, Integer d_categoryId) {
+		List<Driver> drivers = this.driverRepo.findByCityandCategory(d_city,d_categoryId);
+		List<DriverDto> driverDtos = drivers.stream().map((driver)->this.modelMapper.map(driver, DriverDto.class)).collect(Collectors.toList());
+		return driverDtos;
+	}
+
+	//get drivers by city and category with pagination
+	@Override
+	public DriverResponse getAllDriversByCityAndCategoryWithPagination(Integer pageNumber, Integer pageSize,
+			String sortBy, String sortDir, String d_city, Integer d_categoryId) {
+		
+		Sort sort = null;
+		if(sortDir.equalsIgnoreCase("asc"))
+			{
+				sort=Sort.by(sortBy).ascending();
+			}else {
+				sort=Sort.by(sortBy).descending();
+			}
+		Pageable p = PageRequest.of(pageNumber, pageSize, sort);
+		Page<Driver> pageDriver = this.driverRepo.findByCityandCategoryWithPagination(d_city, d_categoryId,p);
+		List<Driver> allDrivers = pageDriver.getContent();
+
+		List<DriverDto> driverDtos = allDrivers.stream().map((driver)->this.modelMapper.map(driver, DriverDto.class)).collect(Collectors.toList());
+		
+		DriverResponse driverResponse = new DriverResponse();
+		
+		
+		
+		driverResponse.setContent(driverDtos);
+		driverResponse.setPageNumber(pageDriver.getNumber());
+		driverResponse.setPageSize(pageDriver.getSize());
+		driverResponse.setTotalElements(pageDriver.getTotalElements());
+		driverResponse.setTotalPages(pageDriver.getTotalPages());
+		driverResponse.setLastPage(pageDriver.isLast());
+		return driverResponse;
+		
+	}
+	
+	
 	
 	
 

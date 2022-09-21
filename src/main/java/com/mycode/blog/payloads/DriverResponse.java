@@ -14,7 +14,7 @@ import lombok.Setter;
 @Setter	
 public class DriverResponse {
 
-private List<Driver> content;
+private List<DriverDto> content;
 	
 	private int pageNumber;
 	

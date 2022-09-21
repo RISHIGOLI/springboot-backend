@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.mycode.blog.entities.Driver;
 import com.mycode.blog.payloads.DriverDto;
+import com.mycode.blog.payloads.DriverResponse;
 
 @Service
 public interface DriverService {
@@ -21,5 +22,10 @@ public interface DriverService {
 	List<Driver> getAllDrivers();
 
 	DriverDto getDriverById(Integer driverId);
+
+	List<DriverDto> getDriversByCityAndCategory(String d_city, Integer d_categoryId);
+
+	DriverResponse getAllDriversByCityAndCategoryWithPagination(Integer pageNumber, Integer pageSize, String sortBy,
+			String sortDir, String d_city, Integer d_categoryId);
 	
 }

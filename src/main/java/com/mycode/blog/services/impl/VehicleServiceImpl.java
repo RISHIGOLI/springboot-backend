@@ -209,8 +209,6 @@ public class VehicleServiceImpl implements VehicleService {
 				sort=Sort.by(sortBy).descending();
 			}
 		Pageable p = PageRequest.of(pageNumber, pageSize, sort);
-//		Page<Vehicle> pageVehicle = this.vehicleRepo.findAll(p);
-//		List<Vehicle> allVehicles = pageVehicle.getContent();
 		
 		Page<Vehicle> pageVehicle = this.vehicleRepo.findByCityandCategoryWithPagination(city, categoryId,p);
 		List<Vehicle> allVehicles = pageVehicle.getContent();
