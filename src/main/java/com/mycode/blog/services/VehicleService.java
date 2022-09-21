@@ -33,7 +33,8 @@ public interface VehicleService {
 	VehicleResponse getAllVehiclesWithPagination(Integer pageNumber, Integer pageSize, String sortBy, String sortDir);
 
 
-
+	VehicleResponse getAllVehiclesByCityAndCategoryWithPagination(Integer pageNumber, Integer pageSize, String sortBy,
+			String sortDir, String city, Integer categoryId);
 	
 
 
@@ -73,6 +74,12 @@ public interface VehicleService {
 
 
 	List<VehicleDto> getVehiclesByCityandCategory(String city, Integer categoryId);
+
+
+
+
+
+	
 
 
 

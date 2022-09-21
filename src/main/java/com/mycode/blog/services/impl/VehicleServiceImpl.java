@@ -126,7 +126,9 @@ public class VehicleServiceImpl implements VehicleService {
 		getCurrentVehicle.setMileage(vehicleDto.getMileage());
 		getCurrentVehicle.setVehicleImage(vehicleDto.getVehicleImage());
 		getCurrentVehicle.setVehicleRCImage(vehicleDto.getVehicleRCImage());
-		
+		getCurrentVehicle.setVehiclePUCImage(vehicleDto.getVehiclePUCImage());
+		getCurrentVehicle.setVehicleInsuranceImage(vehicleDto.getVehicleInsuranceImage());
+		getCurrentVehicle.setVehicleAgreementImage(vehicleDto.getVehicleAgreementImage());
 		
 		Vehicle updatedVehicle = this.vehicleRepo.save(getCurrentVehicle);
 		
@@ -195,6 +197,37 @@ public class VehicleServiceImpl implements VehicleService {
 		List<VehicleDto> vehicleDtos = vehicles.stream().map((vehicle)-> this.modelMapper.map(vehicle, VehicleDto.class)).collect(Collectors.toList());
 		return vehicleDtos;
 	}
+
+	@Override
+	public VehicleResponse getAllVehiclesByCityAndCategoryWithPagination(Integer pageNumber, Integer pageSize,
+			String sortBy, String sortDir, String city, Integer categoryId) {
+		Sort sort = null;
+		if(sortDir.equalsIgnoreCase("asc"))
+			{
+				sort=Sort.by(sortBy).ascending();
+			}else {
+				sort=Sort.by(sortBy).descending();
+			}
+		Pageable p = PageRequest.of(pageNumber, pageSize, sort);
+//		Page<Vehicle> pageVehicle = this.vehicleRepo.findAll(p);
+//		List<Vehicle> allVehicles = pageVehicle.getContent();
+		
+		Page<Vehicle> pageVehicle = this.vehicleRepo.findByCityandCategoryWithPagination(city, categoryId,p);
+		List<Vehicle> allVehicles = pageVehicle.getContent();
+		
+		List<VehicleDto> vehicleDtos = allVehicles.stream().map((vehicle)->this.modelMapper.map(vehicle, VehicleDto.class)).collect(Collectors.toList());
+		
+		VehicleResponse vehicleResponse = new VehicleResponse();
+		
+		vehicleResponse.setContent(vehicleDtos);
+		vehicleResponse.setPageNumber(pageVehicle.getNumber());
+		vehicleResponse.setPageSize(pageVehicle.getSize());
+		vehicleResponse.setTotalElements(pageVehicle.getTotalElements());
+		vehicleResponse.setTotalPages(pageVehicle.getTotalPages());
+		vehicleResponse.setLastPage(pageVehicle.isLast());
+		return vehicleResponse;
+	}
+	
 	
 
 	

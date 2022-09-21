@@ -35,7 +35,7 @@ public class UserController {
 	public ApiResponse<User> updateUser(@Valid @RequestBody User user, @PathVariable Integer userId)
 	{
 	
-		ApiResponse<User> updatedUser = this.userService.updateUser(user, userId);
+		User updatedUser = this.userService.updateUser(user, userId);
 		return new ApiResponse<>("user updated successfully", true, 200);
 		
 	}
@@ -50,10 +50,4 @@ public class UserController {
 	}
 	
 	
-//		@PutMapping("/{userId}")
-//		public ResponseEntity<UserDto> updateUser(@Valid @RequestBody UserDto userDto, @PathVariable Integer userId)
-//		{
-//			UserDto updatedUser = this.userService.updateUser(userDto, userId);
-//			return ResponseEntity.ok(updatedUser);
-//		}
 }

@@ -148,6 +148,22 @@ public class VehicleController {
 			
 		}
 		
+		//get vehicles by city and category with pagination
+		@GetMapping("/getAllVehiclesByCityAndCategoryWithPagination/city/{city}/category/{categoryId}")
+		public ResponseEntity<VehicleResponse> getAllVehiclesByCityAndCategoryWithPagination(
+				@RequestParam(value="pageNumber", defaultValue = AppConstants.PAGE_NUMBER, required = false) Integer pageNumber,
+				@RequestParam(value="pageSize", defaultValue = AppConstants.PAGE_SIZE, required = false) Integer pageSize,
+				@RequestParam(value="sortBy", defaultValue = AppConstants.SORT_BY, required = false) String sortBy,
+				@RequestParam(value="sortDir", defaultValue = AppConstants.SORT_DIR, required = false) String sortDir,
+				@PathVariable("city") String city,
+				@PathVariable Integer categoryId				
+				)
+		{
+			VehicleResponse vehicleResponse = this.vehicleService.getAllVehiclesByCityAndCategoryWithPagination(pageNumber,pageSize,sortBy,sortDir,city,categoryId);
+			return new ResponseEntity<VehicleResponse>(vehicleResponse, HttpStatus.OK);
+						
+		}
+		
 		//update vehicle
 		@PutMapping("/updateVehicle/{vehicleId}")
 		public ApiResponse<VehicleDto> updateVehicle(@RequestBody VehicleDto vehicleDto, @PathVariable Integer vehicleId)
@@ -189,7 +205,7 @@ public class VehicleController {
 			vehicleDto.setVehicleImage(fileName);
 			VehicleDto updatedVehicle = this.vehicleService.updateVehicle(vehicleDto, vehicleId);
 			
-			return new ApiResponse(updatedVehicle, "image added successfully", true, 200);
+			return new ApiResponse(updatedVehicle, "vehicle image added successfully", true, 200);
 			
 		}
 		
@@ -211,10 +227,51 @@ public class VehicleController {
 			
 			vehicleDto.setVehicleRCImage(fileName);
 			VehicleDto updatedVehicle = this.vehicleService.updateVehicle(vehicleDto, vehicleId);
-			return new ApiResponse(updatedVehicle, "image added successfully", true, 200);
+			return new ApiResponse(updatedVehicle, "vehicle rc image added successfully", true, 200);
 			
 		}
 		
+		// upload vehicle PUC Image
+		@PostMapping("/uploadVehiclePUCImage/{vehicleId}")
+		public ApiResponse<VehicleDto> uploadVehiclePUCImage(@RequestParam("image") MultipartFile image, @PathVariable Integer vehicleId) throws IOException
+		{
+			VehicleDto vehicleDto = this.vehicleService.getVehicleById(vehicleId);
+			String fileName = this.fileService.uploadImage(path, image);
+			
+			vehicleDto.setVehiclePUCImage(fileName);
+			VehicleDto updatedVehicle = this.vehicleService.updateVehicle(vehicleDto, vehicleId);
+			return new ApiResponse(updatedVehicle, "vehicle puc image added successfully", true, 200);
+			
+		}
+		
+		//upload vehicle insurance image
+		@PostMapping("/uploadVehicleInsuranceImage/{vehicleId}")
+		public ApiResponse<VehicleDto> uploadVehicleInsuranceImage(@RequestParam("image") MultipartFile image, @PathVariable Integer vehicleId) throws IOException
+		{
+			VehicleDto vehicleDto = this.vehicleService.getVehicleById(vehicleId);
+			String fileName = this.fileService.uploadImage(path, image);
+			
+			vehicleDto.setVehicleInsuranceImage(fileName);
+			VehicleDto updatedVehicle = this.vehicleService.updateVehicle(vehicleDto, vehicleId);
+			return new ApiResponse(updatedVehicle, "vehicle puc image added successfully", true, 200);
+			
+		}
+		
+		//upload vehicle agreement image
+		@PostMapping("/uploadVehicleAgreementImage/{vehicleId}")
+		public ApiResponse<VehicleDto> uploadVehicleAgreementImage(@RequestParam("image") MultipartFile image, @PathVariable Integer vehicleId) throws IOException
+		{
+			VehicleDto vehicleDto = this.vehicleService.getVehicleById(vehicleId);
+			String fileName = this.fileService.uploadImage(path, image);
+			
+			vehicleDto.setVehicleAgreementImage(fileName);
+			VehicleDto updatedVehicle = this.vehicleService.updateVehicle(vehicleDto, vehicleId);
+			return new ApiResponse(updatedVehicle, "vehicle puc image added successfully", true, 200);
+			
+		}
+		
+		
+		// get vehicles by city and category
 		@GetMapping("/getVehiclesByCityandCategory/city/{city}/category/{categoryId}")
 		public ApiResponse<List<VehicleDto>> getVehiclesByCityandCategory(@PathVariable("city") String city, @PathVariable Integer categoryId)
 		{

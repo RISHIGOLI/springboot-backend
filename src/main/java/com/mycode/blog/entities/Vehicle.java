@@ -66,6 +66,12 @@ public class Vehicle {
 	//temp
 	private String vehicleRCImage;
 	
+	private String vehiclePUCImage;
+	
+	private String vehicleInsuranceImage;
+	
+	private String vehicleAgreementImage;
+	
 	
 	
 	

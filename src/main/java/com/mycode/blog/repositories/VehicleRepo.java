@@ -2,6 +2,8 @@ package com.mycode.blog.repositories;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -22,4 +24,9 @@ public interface VehicleRepo extends JpaRepository<Vehicle, Integer>{
 	
 	@Query("select v from Vehicle v where v.city=:city and v.category.id=:categoryId")
 	List<Vehicle> findByCityandCategory(@Param ("city") String city, @Param("categoryId") Integer category_id);
+
+	@Query("select v from Vehicle v where v.city=:city and v.category.id=:categoryId")
+	Page<Vehicle> findByCityandCategoryWithPagination(@Param ("city") String city,@Param("categoryId") Integer category_id, Pageable pageable);
+	
+	
 }

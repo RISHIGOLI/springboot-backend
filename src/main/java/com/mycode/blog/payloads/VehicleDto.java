@@ -39,4 +39,10 @@ public class VehicleDto {
 	private String vehicleImage;
 	
 	private String vehicleRCImage;
+	
+	private String vehiclePUCImage;
+	
+	private String vehicleInsuranceImage;
+	
+	private String vehicleAgreementImage;
 }

@@ -36,7 +36,7 @@ public interface UserService {
 
 
 
-	ApiResponse<User> updateUser(@Valid User user, Integer userId);
+	User updateUser(@Valid User user, Integer userId);
 
 	User getUserById(Integer userId);
 	 
