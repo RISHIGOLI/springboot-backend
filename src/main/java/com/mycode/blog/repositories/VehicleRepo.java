@@ -29,4 +29,7 @@ public interface VehicleRepo extends JpaRepository<Vehicle, Integer>{
 	Page<Vehicle> findByCityandCategoryWithPagination(@Param ("city") String city,@Param("categoryId") Integer category_id, Pageable pageable);
 	
 	
+	
+	
+	
 }
