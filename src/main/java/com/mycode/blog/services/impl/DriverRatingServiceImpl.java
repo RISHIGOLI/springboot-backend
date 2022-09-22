@@ -39,5 +39,13 @@ public class DriverRatingServiceImpl implements DriverRatingService{
 		this.driverRatingRepo.delete(driverRating);
 	}
 
+	//get average rating of the driver
+	@Override
+	public String getAvgRatingByDriver(Integer driverId) {
+		String driverRating = this.driverRatingRepo.findAvgRatingByDriver(driverId);
+		return driverRating;
+	}
+
+	
 	
 }

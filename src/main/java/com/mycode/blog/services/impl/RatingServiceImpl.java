@@ -37,7 +37,13 @@ public class RatingServiceImpl implements RatingService{
 		this.ratingRepo.delete(rating);
 		
 	}
-	
 
+	@Override
+	public String getAvgRating(Integer vehicleId) {
+		String avgRating = this.ratingRepo.findAvgRatingByVehicle(vehicleId);
+		return avgRating;
+	}
+	
+	
 
 }

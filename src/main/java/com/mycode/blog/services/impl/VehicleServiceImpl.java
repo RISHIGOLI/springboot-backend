@@ -225,9 +225,15 @@ public class VehicleServiceImpl implements VehicleService {
 		vehicleResponse.setLastPage(pageVehicle.isLast());
 		return vehicleResponse;
 	}
-	
-	
 
+	@Override
+	public int getNoOfVehiclesAddedByUser(Integer userId) {
+		int noOfVehicles = this.vehicleRepo.NoOfVehiclesAddedByUser(userId);
+		return noOfVehicles;
+	}
+	
+	
+	
 	
 	
 	

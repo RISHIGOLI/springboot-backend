@@ -281,7 +281,14 @@ public class VehicleController {
 		}
 		
 		
-		
+		// get no of vehicles added by user
+		@GetMapping("/getNoOfVehiclesAddedByUser/{userId}")
+		public ApiResponse<Integer> getNoOfVehiclesAddedByUser(@PathVariable Integer userId)
+		{
+			int noOfVehicles = this.vehicleService.getNoOfVehiclesAddedByUser(userId);
+			return new ApiResponse<Integer>(noOfVehicles, noOfVehicles +" are added by user with id = "+userId, true, 200);
+			
+		}
 		
 		
 	

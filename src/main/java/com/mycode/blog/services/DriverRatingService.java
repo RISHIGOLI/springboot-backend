@@ -8,4 +8,7 @@ public interface DriverRatingService {
 
 	void deleteDriverRating(Integer d_ratingId);
 
+	// get average rating of driver
+	String getAvgRatingByDriver(Integer driverId);
+
 }

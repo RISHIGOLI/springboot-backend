@@ -28,7 +28,8 @@ public interface VehicleRepo extends JpaRepository<Vehicle, Integer>{
 	@Query("select v from Vehicle v where v.city=:city and v.category.id=:categoryId")
 	Page<Vehicle> findByCityandCategoryWithPagination(@Param ("city") String city,@Param("categoryId") Integer category_id, Pageable pageable);
 	
-	
+	@Query(value = "select count(*) as total_vehicles from vehicles v where v.user_id=:userId", nativeQuery = true)
+	int NoOfVehiclesAddedByUser(@Param("userId") Integer userId);
 	
 	
 	

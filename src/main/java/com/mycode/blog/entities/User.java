@@ -83,7 +83,7 @@ public class User implements UserDetails{
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<Vehicle> vehicles = new ArrayList<>();
 	
-	
+	private String userImage;
 	
 
 	@JsonProperty

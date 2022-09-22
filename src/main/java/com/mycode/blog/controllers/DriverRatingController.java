@@ -2,6 +2,7 @@ package com.mycode.blog.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -35,4 +36,13 @@ public class DriverRatingController {
 		return new ApiResponse<>("driver rating deleted successfully", true, 200);
 		
 	}
+	
+	// get average rating by driver
+		@GetMapping("/getAvgRatingByDriver/{driverId}")
+		public ApiResponse<String> getAvgRatingByDriver(@PathVariable Integer driverId)
+		{
+			String driverRating = this.driverRatingService.getAvgRatingByDriver(driverId);
+			return new ApiResponse<String>(driverRating,"query success", true,200);
+			
+		}
 }

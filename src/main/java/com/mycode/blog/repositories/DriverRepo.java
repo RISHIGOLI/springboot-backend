@@ -23,4 +23,8 @@ public interface DriverRepo extends JpaRepository<Driver, Integer>{
 
 //	@Query("select d from Driver d where d.city=:d_city and d.driverCategory.id=:driver_category_id")
 //	List<Driver> findByCityandCategory (@Param ("city") String city, @Param("categoryId") Integer category_id);
+	
+	// get no of drivers added by user
+	@Query(value = "select count(*) from drivers d where d.user_id=:userId", nativeQuery = true)
+	int noOfDriversAddedByUser(@Param("userId") Integer userId);
 }

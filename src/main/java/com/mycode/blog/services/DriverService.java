@@ -29,5 +29,12 @@ public interface DriverService {
 			String sortDir, String d_city, Integer d_categoryId);
 
 	List<Driver> getDriversByUser(Integer userId);
+
+	//get no of drivers added by user
+	Integer getNoOfDriversAddedByUser(Integer userId);
+
+	
+
+	
 	
 }

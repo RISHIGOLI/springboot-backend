@@ -214,6 +214,13 @@ public class DriverController {
 //		return new ResponseEntity<VehicleResponse>(vehicleResponse, HttpStatus.OK);
 //					
 //	}
+	@GetMapping("/getNoOfDriversAddedByUser/{userId}")
+	public ApiResponse<Integer> getNoOfDriversAddedByUser(@PathVariable Integer userId)
+	{
+		Integer drivers = this.driverService.getNoOfDriversAddedByUser(userId);
+		return new ApiResponse<Integer>(drivers, drivers + " are added by user with id = " + userId, true, 200);
+		
+	}
 	
 
 }

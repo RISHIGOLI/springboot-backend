@@ -153,6 +153,13 @@ public class DriverServiceImpl implements DriverService{
 		List<Driver> drivers = this.driverRepo.findByUser(user);
 		return drivers.stream().collect(Collectors.toList());
 	}
+
+	// get no of drivers added by user
+	@Override
+	public Integer getNoOfDriversAddedByUser(Integer userId) {
+		Integer drivers = this.driverRepo.noOfDriversAddedByUser(userId);
+		return drivers;
+	}
 	
 	
 	

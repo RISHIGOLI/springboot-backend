@@ -8,4 +8,6 @@ public interface RatingService {
 
 	void deleteRating(Integer ratingId);
 
+	String getAvgRating(Integer vehicleId);
+
 }

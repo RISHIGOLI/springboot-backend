@@ -79,6 +79,12 @@ public interface VehicleService {
 
 
 
+	int getNoOfVehiclesAddedByUser(Integer userId);
+
+
+
+
+
 	
 
 
