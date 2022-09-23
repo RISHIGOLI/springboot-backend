@@ -46,6 +46,13 @@ public class DriverRatingServiceImpl implements DriverRatingService{
 		return driverRating;
 	}
 
+	// get total no of ratings by driver
+	@Override
+	public String getTotalNoOfRatingsByDriver(Integer driverId) {
+		String totalDriverRatings = this.driverRatingRepo.findTotalNoOfRatingsByDriver(driverId);
+		return totalDriverRatings;
+	}
+
 	
 	
 }

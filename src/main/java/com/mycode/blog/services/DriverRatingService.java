@@ -11,4 +11,7 @@ public interface DriverRatingService {
 	// get average rating of driver
 	String getAvgRatingByDriver(Integer driverId);
 
+	// get total no of ratings by driver
+	String getTotalNoOfRatingsByDriver(Integer driverId);
+
 }

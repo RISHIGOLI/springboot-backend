@@ -38,11 +38,22 @@ public class RatingServiceImpl implements RatingService{
 		
 	}
 
+	// get average rating by vehicle
 	@Override
 	public String getAvgRating(Integer vehicleId) {
 		String avgRating = this.ratingRepo.findAvgRatingByVehicle(vehicleId);
 		return avgRating;
 	}
+
+	// get total no of ratings by vehicle
+	@Override
+	public String getTotalNoOfRatings(Integer vehicleId) {
+		String totalRatings = this.ratingRepo.findTotalNoOfRatingsByVehicle(vehicleId);
+		return totalRatings;
+	}
+	
+	
+	
 	
 	
 

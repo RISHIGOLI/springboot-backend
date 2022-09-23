@@ -10,4 +10,6 @@ public interface RatingService {
 
 	String getAvgRating(Integer vehicleId);
 
+	String getTotalNoOfRatings(Integer vehicleId);
+
 }

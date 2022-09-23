@@ -41,11 +41,21 @@ public class RatingController {
 //		
 //	}
 	
+	// get average ratings by vehicle
 	@GetMapping("/getAvgRating/{vehicleId}")
 	public ApiResponse<String> getAvgRating(@PathVariable Integer vehicleId)
 	{
 		String avgRating = this.ratingService.getAvgRating(vehicleId);
 		return new ApiResponse<String>(avgRating, "query success", true, 200);
+		
+	}
+	
+	// get total no of ratings by vehicle
+	@GetMapping("/getTotalNoOfRatings/{vehicleId}")
+	public ApiResponse<String> getTotalNoOfRatings(@PathVariable Integer vehicleId)
+	{
+		String totalRatings = this.ratingService.getTotalNoOfRatings(vehicleId);
+		return new ApiResponse<String>(totalRatings, "query success", true, 200);
 		
 	}
 	

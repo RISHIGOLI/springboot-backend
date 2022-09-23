@@ -19,5 +19,9 @@ public interface RatingRepo extends JpaRepository<Rating, Integer>{
 	// get average rating of the vehicle
 	@Query(value = "select (cast(avg(no_of_stars) as decimal(2,1))) as avgRating from ratings r where r.vehicle_id=:vehicleId", nativeQuery = true)
 	String findAvgRatingByVehicle(@Param("vehicleId") Integer vehicleId);
+
+	// get total no of ratings of the vehicle
+	@Query(value = "select count(*) as totalRatings from ratings r where r.vehicle_id=:vehicleId", nativeQuery = true)
+	String findTotalNoOfRatingsByVehicle(Integer vehicleId);
 	
 }

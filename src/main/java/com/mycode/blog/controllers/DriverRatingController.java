@@ -45,4 +45,13 @@ public class DriverRatingController {
 			return new ApiResponse<String>(driverRating,"query success", true,200);
 			
 		}
+		
+		// get total no of ratings by driver
+		@GetMapping("/getTotalNoOfRatingsByDriver/{driverId}")
+		public ApiResponse<String> getTotalNoOfRatingsByDriver(@PathVariable Integer driverId)
+		{
+			String totalDriverRatings = this.driverRatingService.getTotalNoOfRatingsByDriver(driverId);
+			return new ApiResponse<String>(totalDriverRatings,"query success", true,200);
+			
+		}
 }
