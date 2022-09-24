@@ -30,6 +30,10 @@ public interface VehicleRepo extends JpaRepository<Vehicle, Integer>{
 	
 	@Query(value = "select count(*) as total_vehicles from vehicles v where v.user_id=:userId", nativeQuery = true)
 	int NoOfVehiclesAddedByUser(@Param("userId") Integer userId);
+
+	// get no of vehicles added by  user
+	@Query(value = "select * from vehicles  where user_id=:userId", nativeQuery = true)
+	Page<Vehicle> findVehiclesAddedByUser(@Param("userId") Integer userId, Pageable pageable);
 	
 	
 	

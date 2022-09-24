@@ -27,4 +27,8 @@ public interface DriverRepo extends JpaRepository<Driver, Integer>{
 	// get no of drivers added by user
 	@Query(value = "select count(*) from drivers d where d.user_id=:userId", nativeQuery = true)
 	int noOfDriversAddedByUser(@Param("userId") Integer userId);
+
+	// get drivers added by user with pagination
+	@Query(value= "select d from Driver d where d.user.id=:userId")
+	Page<Driver> findAllDriversAddedByUserWithPagination(@Param("userId") Integer userId, Pageable pageable);
 }

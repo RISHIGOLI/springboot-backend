@@ -84,6 +84,13 @@ public interface VehicleService {
 
 
 
+	// get all vehicles added by user with pagination
+	VehicleResponse getAllVehicleAddedByUserWithPagination(Integer pageNumber, Integer pageSize, String sortBy,
+			String sortDir, Integer userId);
+
+
+
+
 
 	
 

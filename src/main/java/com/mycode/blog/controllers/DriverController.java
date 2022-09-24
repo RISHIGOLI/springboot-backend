@@ -214,11 +214,29 @@ public class DriverController {
 //		return new ResponseEntity<VehicleResponse>(vehicleResponse, HttpStatus.OK);
 //					
 //	}
+	
+	// get no of drivers added by user
 	@GetMapping("/getNoOfDriversAddedByUser/{userId}")
 	public ApiResponse<Integer> getNoOfDriversAddedByUser(@PathVariable Integer userId)
 	{
 		Integer drivers = this.driverService.getNoOfDriversAddedByUser(userId);
 		return new ApiResponse<Integer>(drivers, drivers + " are added by user with id = " + userId, true, 200);
+		
+	}
+	
+	// get all drivers added by user with pagination
+	@GetMapping("/getAllDriversAddedByUserWithPagination/{userId}")
+	public ResponseEntity<DriverResponse> getAllDriversAddedByUserWithPagination(
+			@RequestParam(value="pageNumber", defaultValue = AppConstants.PAGE_NUMBER, required = false) Integer pageNumber,
+			@RequestParam(value="pageSize", defaultValue = AppConstants.PAGE_SIZE, required = false) Integer pageSize,
+			@RequestParam(value="sortBy", defaultValue = AppConstants.SORT_BY, required = false) String sortBy,
+			@RequestParam(value="sortDir", defaultValue = AppConstants.SORT_DIR, required = false) String sortDir,
+			@PathVariable Integer userId
+			)
+	{
+		DriverResponse driverResponse = this.driverService.getAllDriversAddedByUserWithPagination(pageNumber,pageSize,sortBy,sortDir,userId);
+		return new ResponseEntity<DriverResponse>(driverResponse, HttpStatus.OK);
+		
 		
 	}
 	

@@ -33,6 +33,10 @@ public interface DriverService {
 	//get no of drivers added by user
 	Integer getNoOfDriversAddedByUser(Integer userId);
 
+	// get all drivers added by user with pagination
+	DriverResponse getAllDriversAddedByUserWithPagination(Integer pageNumber, Integer pageSize, String sortBy,
+			String sortDir, Integer userId);
+
 	
 
 	

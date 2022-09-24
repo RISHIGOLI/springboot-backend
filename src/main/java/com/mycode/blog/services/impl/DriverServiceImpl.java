@@ -160,6 +160,36 @@ public class DriverServiceImpl implements DriverService{
 		Integer drivers = this.driverRepo.noOfDriversAddedByUser(userId);
 		return drivers;
 	}
+
+	// get all drivers added by user with pagination
+	@Override
+	public DriverResponse getAllDriversAddedByUserWithPagination(Integer pageNumber, Integer pageSize, String sortBy,
+			String sortDir, Integer userId) {
+		Sort sort = null;
+		if(sortDir.equalsIgnoreCase("asc"))
+			{
+				sort=Sort.by(sortBy).ascending();
+			}else {
+				sort=Sort.by(sortBy).descending();
+			}
+		
+		Pageable p = PageRequest.of(pageNumber, pageSize, sort);
+		Page<Driver> pageDriver = this.driverRepo.findAllDriversAddedByUserWithPagination(userId,p);
+		
+		List<Driver> allDrivers = pageDriver.getContent();
+
+		List<DriverDto> driverDtos = allDrivers.stream().map((driver)->this.modelMapper.map(driver, DriverDto.class)).collect(Collectors.toList());
+
+		
+		DriverResponse driverResponse = new DriverResponse();
+		driverResponse.setContent(driverDtos);
+		driverResponse.setPageNumber(pageDriver.getNumber());
+		driverResponse.setPageSize(pageDriver.getSize());
+		driverResponse.setTotalElements(pageDriver.getTotalElements());
+		driverResponse.setTotalPages(pageDriver.getTotalPages());
+		driverResponse.setLastPage(pageDriver.isLast());
+		return driverResponse;
+	}
 	
 	
 	

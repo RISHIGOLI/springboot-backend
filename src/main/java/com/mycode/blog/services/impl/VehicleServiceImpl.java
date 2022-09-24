@@ -197,7 +197,8 @@ public class VehicleServiceImpl implements VehicleService {
 		List<VehicleDto> vehicleDtos = vehicles.stream().map((vehicle)-> this.modelMapper.map(vehicle, VehicleDto.class)).collect(Collectors.toList());
 		return vehicleDtos;
 	}
-
+	
+	// get all vehicles by city and category with pagination
 	@Override
 	public VehicleResponse getAllVehiclesByCityAndCategoryWithPagination(Integer pageNumber, Integer pageSize,
 			String sortBy, String sortDir, String city, Integer categoryId) {
@@ -226,10 +227,40 @@ public class VehicleServiceImpl implements VehicleService {
 		return vehicleResponse;
 	}
 
+	// get no of vehicles added by user
 	@Override
 	public int getNoOfVehiclesAddedByUser(Integer userId) {
 		int noOfVehicles = this.vehicleRepo.NoOfVehiclesAddedByUser(userId);
 		return noOfVehicles;
+	}
+
+	// get all vehicles added by user with pagination
+	@Override
+	public VehicleResponse getAllVehicleAddedByUserWithPagination(Integer pageNumber, Integer pageSize, String sortBy,
+			String sortDir, Integer userId) {
+		
+		Sort sort = null;
+		if(sortDir.equalsIgnoreCase("asc"))
+			{
+				sort=Sort.by(sortBy).ascending();
+			}else {
+				sort=Sort.by(sortBy).descending();
+			}
+		
+		Pageable p = PageRequest.of(pageNumber, pageSize, sort);
+		Page<Vehicle> pageVehicle = this.vehicleRepo.findVehiclesAddedByUser(userId,p);
+		List<Vehicle> allVehicles = pageVehicle.getContent();
+		
+		List<VehicleDto> vehicleDtos = allVehicles.stream().map((vehicle)->this.modelMapper.map(vehicle, VehicleDto.class)).collect(Collectors.toList());
+		
+		VehicleResponse vehicleResponse = new VehicleResponse();
+		vehicleResponse.setContent(vehicleDtos);
+		vehicleResponse.setPageNumber(pageVehicle.getNumber());
+		vehicleResponse.setPageSize(pageVehicle.getSize());
+		vehicleResponse.setTotalElements(pageVehicle.getTotalElements());
+		vehicleResponse.setTotalPages(pageVehicle.getTotalPages());
+		vehicleResponse.setLastPage(pageVehicle.isLast());
+		return vehicleResponse;
 	}
 	
 	

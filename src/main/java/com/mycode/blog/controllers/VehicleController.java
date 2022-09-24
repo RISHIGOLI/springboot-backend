@@ -290,7 +290,21 @@ public class VehicleController {
 			
 		}
 		
-		
-	
+		// get all vehicles added by user with pagination
+		@GetMapping("/getAllVehicleAddedByUserWithPagination/{userId}")
+		public ResponseEntity<VehicleResponse> getAllVehicleAddedByUserWithPagination(
+				@RequestParam(value="pageNumber", defaultValue = AppConstants.PAGE_NUMBER, required = false) Integer pageNumber,
+				@RequestParam(value="pageSize", defaultValue = AppConstants.PAGE_SIZE, required = false) Integer pageSize,
+				@RequestParam(value="sortBy", defaultValue = AppConstants.SORT_BY, required = false) String sortBy,
+				@RequestParam(value="sortDir", defaultValue = AppConstants.SORT_DIR, required = false) String sortDir,
+				@PathVariable Integer userId
+				)
+		{
+			
+			VehicleResponse vehicleResponse = this.vehicleService.getAllVehicleAddedByUserWithPagination(pageNumber,pageSize,sortBy,sortDir,userId);
+			return new ResponseEntity<VehicleResponse>(vehicleResponse, HttpStatus.OK);
+			
+		}
+			
 
 }
