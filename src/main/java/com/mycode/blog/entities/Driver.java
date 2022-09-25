@@ -77,6 +77,9 @@ public class Driver {
 	
 	@Column
 	private String drivingLicenseImage;
+	
+	@Column
+	private String about;
 		
 	//@JsonBackReference
 	//@Cascade(CascadeType.ALL)
@@ -266,9 +269,32 @@ public class Driver {
 		this.drivingLicenseImage = drivingLicenseImage;
 	}
 
+	
+
+	
+	
+	
+
+	public String getAbout() {
+		return about;
+	}
+
+
+
+
+	public void setAbout(String about) {
+		this.about = about;
+	}
+
+
+	
+
+
 	public Driver(int d_id, String d_bloodGroup, String d_altMobNo, String d_ridingExperience, String d_ratings,
 			String d_education, String d_knownLanguages, String d_firstName, String d_lastName, String d_address,
-			String d_city, String d_dob, String d_gender, String driverImage, DriverCategory driverCategory) {
+			String d_city, String d_dob, String d_gender, String driverImage, String driverFitnessCertificateImage,
+			String driverAgreementImage, String drivingLicenseImage, String about, DriverCategory driverCategory,
+			User user, Set<DriverRating> driverRatings) {
 		super();
 		this.d_id = d_id;
 		this.d_bloodGroup = d_bloodGroup;
@@ -284,20 +310,32 @@ public class Driver {
 		this.d_dob = d_dob;
 		this.d_gender = d_gender;
 		this.driverImage = driverImage;
+		this.driverFitnessCertificateImage = driverFitnessCertificateImage;
+		this.driverAgreementImage = driverAgreementImage;
+		this.drivingLicenseImage = drivingLicenseImage;
+		this.about = about;
 		this.driverCategory = driverCategory;
+		this.user = user;
+		this.driverRatings = driverRatings;
 	}
 
+
 	
-	
+
 	@Override
 	public String toString() {
 		return "Driver [d_id=" + d_id + ", d_bloodGroup=" + d_bloodGroup + ", d_altMobNo=" + d_altMobNo
 				+ ", d_ridingExperience=" + d_ridingExperience + ", d_ratings=" + d_ratings + ", d_education="
 				+ d_education + ", d_knownLanguages=" + d_knownLanguages + ", d_firstName=" + d_firstName
 				+ ", d_lastName=" + d_lastName + ", d_address=" + d_address + ", d_city=" + d_city + ", d_dob=" + d_dob
-				+ ", d_gender=" + d_gender + ", driverImage=" + driverImage + ", driverCategory=" + driverCategory
-				+ "]";
+				+ ", d_gender=" + d_gender + ", driverImage=" + driverImage + ", driverFitnessCertificateImage="
+				+ driverFitnessCertificateImage + ", driverAgreementImage=" + driverAgreementImage
+				+ ", drivingLicenseImage=" + drivingLicenseImage + ", about=" + about + ", driverCategory="
+				+ driverCategory + ", user=" + user + ", driverRatings=" + driverRatings + "]";
 	}
+
+
+
 
 	public Driver() {
 		super();

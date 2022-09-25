@@ -57,4 +57,6 @@ public class DriverDto {
 	private String driverAgreementImage;
 	
 	private String drivingLicenseImage;
+	
+	private String about;
 }
