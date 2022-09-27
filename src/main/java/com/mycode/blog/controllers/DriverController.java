@@ -84,6 +84,8 @@ public class DriverController {
 		for (Driver driver : allDrivers) {
 			String driverRating = this.driverRatingService.getAvgRatingByDriver(driver.getD_id());
 			driver.setD_ratings(driverRating);
+			String totalDriverRatings = this.driverRatingService.getTotalNoOfRatingsByDriver(driver.getD_id());
+			driver.setD_noOfRatings(totalDriverRatings);
 		}
 		return new ApiResponse<>(allDrivers, "drivers found", true, 200);
 		

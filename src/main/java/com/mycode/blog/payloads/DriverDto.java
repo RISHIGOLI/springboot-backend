@@ -25,6 +25,8 @@ public class DriverDto {
 	
 	private String d_ratings;
 	
+	private String d_noOfRatings;
+	
 	private String d_education;
 	
 	private String d_knownLanguages;

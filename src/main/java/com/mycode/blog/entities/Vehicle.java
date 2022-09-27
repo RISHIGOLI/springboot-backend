@@ -72,6 +72,12 @@ public class Vehicle {
 	
 	private String vehicleAgreementImage;
 	
+	@Column
+	private String v_ratings;
+	
+	@Column
+	private String v_noOfRatings;
+	
 	
 	
 	

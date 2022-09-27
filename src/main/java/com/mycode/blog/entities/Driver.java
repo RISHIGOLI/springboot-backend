@@ -43,6 +43,9 @@ public class Driver {
 	private String d_ratings;
 	
 	@Column
+	private String d_noOfRatings;
+	
+	@Column
 	private String d_education;
 	
 	@Column
@@ -274,6 +277,20 @@ public class Driver {
 	
 	
 	
+
+	public String getD_noOfRatings() {
+		return d_noOfRatings;
+	}
+
+
+
+
+	public void setD_noOfRatings(String d_noOfRatings) {
+		this.d_noOfRatings = d_noOfRatings;
+	}
+
+
+
 
 	public String getAbout() {
 		return about;
