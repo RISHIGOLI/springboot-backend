@@ -32,6 +32,7 @@ import com.mycode.blog.entities.Vehicle;
 import com.mycode.blog.payloads.DriverDto;
 import com.mycode.blog.payloads.DriverResponse;
 import com.mycode.blog.payloads.VehicleDto;
+import com.mycode.blog.services.DriverRatingService;
 import com.mycode.blog.services.DriverService;
 import com.mycode.blog.services.FileService;
 
@@ -44,6 +45,9 @@ public class DriverController {
 	
 	@Autowired
 	private FileService fileService;
+	
+	@Autowired
+	private DriverRatingService driverRatingService;
 	
 	//add new driver
 	@PostMapping("/user/{userId}/category/{d_categoryId}/enrollAsDriver")
@@ -77,6 +81,10 @@ public class DriverController {
 	public ApiResponse<Driver> getAllDrivers()
 	{
 		List<Driver> allDrivers = this.driverService.getAllDrivers();
+		for (Driver driver : allDrivers) {
+			String driverRating = this.driverRatingService.getAvgRatingByDriver(driver.getD_id());
+			driver.setD_ratings(driverRating);
+		}
 		return new ApiResponse<>(allDrivers, "drivers found", true, 200);
 		
 	}
