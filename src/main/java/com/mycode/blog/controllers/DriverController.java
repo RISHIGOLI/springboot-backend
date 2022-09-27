@@ -3,11 +3,12 @@ package com.mycode.blog.controllers;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
-
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -48,6 +49,9 @@ public class DriverController {
 	
 	@Autowired
 	private DriverRatingService driverRatingService;
+	
+	@Autowired
+	private ModelMapper modelMapper;
 	
 	//add new driver
 	@PostMapping("/user/{userId}/category/{d_categoryId}/enrollAsDriver")
@@ -191,7 +195,17 @@ public class DriverController {
 	{
 //		List<VehicleDto> vehicleDtos = this.vehicleService.getVehiclesByCityandCategory(city, categoryId);
 		List<DriverDto> driverDtos = this.driverService.getDriversByCityAndCategory(d_city,d_categoryId);
-		return new ApiResponse<>(driverDtos, "drivers found", true, 200);
+		List<Driver> drivers = driverDtos.stream().map((driver)->this.modelMapper.map(driver, Driver.class)).collect(Collectors.toList());
+		
+		for (Driver driver : drivers) {
+			String driverRating = this.driverRatingService.getAvgRatingByDriver(driver.getD_id());
+			driver.setD_ratings(driverRating);
+			String totalDriverRatings = this.driverRatingService.getTotalNoOfRatingsByDriver(driver.getD_id());
+			driver.setD_noOfRatings(totalDriverRatings);
+		}
+		
+		List<DriverDto> allDriverDtos = drivers.stream().map((driver)->this.modelMapper.map(driver, DriverDto.class)).collect(Collectors.toList());
+		return new ApiResponse<>(allDriverDtos, "drivers found", true, 200);
 		
 	}
 	

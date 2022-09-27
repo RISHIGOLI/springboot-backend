@@ -24,6 +24,7 @@ import com.mycode.blog.payloads.VehicleResponse;
 import com.mycode.blog.repositories.DriverCategoryRepo;
 import com.mycode.blog.repositories.DriverRepo;
 import com.mycode.blog.repositories.UserRepo;
+import com.mycode.blog.services.DriverRatingService;
 import com.mycode.blog.services.DriverService;
 
 @Component
@@ -40,6 +41,9 @@ public class DriverServiceImpl implements DriverService{
 	
 	@Autowired
 	private DriverCategoryRepo driverCategoryRepo;
+	
+	@Autowired
+	private DriverRatingService driverRatingService;
 	
 	
 	//add or enrolling new driver
@@ -131,12 +135,22 @@ public class DriverServiceImpl implements DriverService{
 		List<Driver> allDrivers = pageDriver.getContent();
 
 		List<DriverDto> driverDtos = allDrivers.stream().map((driver)->this.modelMapper.map(driver, DriverDto.class)).collect(Collectors.toList());
+		List<Driver> drivers = driverDtos.stream().map((driver)->this.modelMapper.map(driver, Driver.class)).collect(Collectors.toList());
+		
+		for (Driver driver : drivers) {
+			String driverRating = this.driverRatingService.getAvgRatingByDriver(driver.getD_id());
+			driver.setD_ratings(driverRating);
+			String totalDriverRatings = this.driverRatingService.getTotalNoOfRatingsByDriver(driver.getD_id());
+			driver.setD_noOfRatings(totalDriverRatings);
+		}
+		
+		List<DriverDto> allDriverDtos = drivers.stream().map((driver)->this.modelMapper.map(driver, DriverDto.class)).collect(Collectors.toList());
 		
 		DriverResponse driverResponse = new DriverResponse();
 		
 		
 		
-		driverResponse.setContent(driverDtos);
+		driverResponse.setContent(allDriverDtos);
 		driverResponse.setPageNumber(pageDriver.getNumber());
 		driverResponse.setPageSize(pageDriver.getSize());
 		driverResponse.setTotalElements(pageDriver.getTotalElements());
@@ -180,10 +194,21 @@ public class DriverServiceImpl implements DriverService{
 		List<Driver> allDrivers = pageDriver.getContent();
 
 		List<DriverDto> driverDtos = allDrivers.stream().map((driver)->this.modelMapper.map(driver, DriverDto.class)).collect(Collectors.toList());
+		List<Driver> drivers = driverDtos.stream().map((driver)->this.modelMapper.map(driver, Driver.class)).collect(Collectors.toList());
+		
+		for (Driver driver : drivers) {
+			String driverRating = this.driverRatingService.getAvgRatingByDriver(driver.getD_id());
+			driver.setD_ratings(driverRating);
+			String totalDriverRatings = this.driverRatingService.getTotalNoOfRatingsByDriver(driver.getD_id());
+			driver.setD_noOfRatings(totalDriverRatings);
+		}
+		
+		List<DriverDto> allDriverDtos = drivers.stream().map((driver)->this.modelMapper.map(driver, DriverDto.class)).collect(Collectors.toList());
+		
 
 		
 		DriverResponse driverResponse = new DriverResponse();
-		driverResponse.setContent(driverDtos);
+		driverResponse.setContent(allDriverDtos);
 		driverResponse.setPageNumber(pageDriver.getNumber());
 		driverResponse.setPageSize(pageDriver.getSize());
 		driverResponse.setTotalElements(pageDriver.getTotalElements());

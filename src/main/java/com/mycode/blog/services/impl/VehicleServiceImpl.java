@@ -25,7 +25,7 @@ import com.mycode.blog.payloads.VehicleResponse;
 import com.mycode.blog.repositories.CategoryRepo;
 import com.mycode.blog.repositories.UserRepo;
 import com.mycode.blog.repositories.VehicleRepo;
-
+import com.mycode.blog.services.RatingService;
 import com.mycode.blog.services.VehicleService;
 import com.mycode.blog.utils.Utility;
 
@@ -43,6 +43,9 @@ public class VehicleServiceImpl implements VehicleService {
 	
 	@Autowired
 	private CategoryRepo categoryRepo;
+	
+	@Autowired
+	private RatingService ratingService;
 
 //	@Override
 //	public ApiResponse<Vehicle> addNewVehicle(Vehicle vehicle) {
@@ -215,10 +218,22 @@ public class VehicleServiceImpl implements VehicleService {
 		List<Vehicle> allVehicles = pageVehicle.getContent();
 		
 		List<VehicleDto> vehicleDtos = allVehicles.stream().map((vehicle)->this.modelMapper.map(vehicle, VehicleDto.class)).collect(Collectors.toList());
+		List<Vehicle> vehicles = vehicleDtos.stream().map((vehicle)->this.modelMapper.map(vehicle, Vehicle.class)).collect(Collectors.toList());
+		for (Vehicle vehicle: vehicles) {
+
+			String avgRating = this.ratingService.getAvgRating(vehicle.getId());
+			vehicle.setV_ratings(avgRating);
+			
+			String noOfRatings = this.ratingService.getTotalNoOfRatings(vehicle.getId());
+			vehicle.setV_noOfRatings(noOfRatings);
+		}
+		
+		List<VehicleDto> allVehicleDtos = vehicles.stream().map((vehicle)->this.modelMapper.map(vehicle, VehicleDto.class)).collect(Collectors.toList());
+		
 		
 		VehicleResponse vehicleResponse = new VehicleResponse();
 		
-		vehicleResponse.setContent(vehicleDtos);
+		vehicleResponse.setContent(allVehicleDtos);
 		vehicleResponse.setPageNumber(pageVehicle.getNumber());
 		vehicleResponse.setPageSize(pageVehicle.getSize());
 		vehicleResponse.setTotalElements(pageVehicle.getTotalElements());
@@ -252,9 +267,22 @@ public class VehicleServiceImpl implements VehicleService {
 		List<Vehicle> allVehicles = pageVehicle.getContent();
 		
 		List<VehicleDto> vehicleDtos = allVehicles.stream().map((vehicle)->this.modelMapper.map(vehicle, VehicleDto.class)).collect(Collectors.toList());
+		List<Vehicle> vehicles = vehicleDtos.stream().map((vehicle)->this.modelMapper.map(vehicle, Vehicle.class)).collect(Collectors.toList());
+		for (Vehicle vehicle: vehicles) {
+
+			String avgRating = this.ratingService.getAvgRating(vehicle.getId());
+			vehicle.setV_ratings(avgRating);
+			
+			String noOfRatings = this.ratingService.getTotalNoOfRatings(vehicle.getId());
+			vehicle.setV_noOfRatings(noOfRatings);
+		}
+		
+		List<VehicleDto> allVehicleDtos = vehicles.stream().map((vehicle)->this.modelMapper.map(vehicle, VehicleDto.class)).collect(Collectors.toList());
+		
+		
 		
 		VehicleResponse vehicleResponse = new VehicleResponse();
-		vehicleResponse.setContent(vehicleDtos);
+		vehicleResponse.setContent(allVehicleDtos);
 		vehicleResponse.setPageNumber(pageVehicle.getNumber());
 		vehicleResponse.setPageSize(pageVehicle.getSize());
 		vehicleResponse.setTotalElements(pageVehicle.getTotalElements());

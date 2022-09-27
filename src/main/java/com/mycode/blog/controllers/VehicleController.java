@@ -118,9 +118,9 @@ public class VehicleController {
 		{
 			List<VehicleDto> allVehicles = this.vehicleService.getAllVehicles();
 			List<Vehicle> vehicles = allVehicles.stream().map((vehicle)->this.modelMapper.map(vehicle, Vehicle.class)).collect(Collectors.toList());
-//			List<VehicleDto> vehicleDtos = allVehicles.stream().map((vehicle)->this.modelMapper.map(vehicle,VehicleDto.class)).collect(Collectors.toList());
+
 			for (Vehicle vehicle: vehicles) {
-//				String driverRating = this.driverRatingService.getAvgRatingByDriver(driver.getD_id());
+
 				String avgRating = this.ratingService.getAvgRating(vehicle.getId());
 				vehicle.setV_ratings(avgRating);
 				
@@ -297,7 +297,19 @@ public class VehicleController {
 		public ApiResponse<List<VehicleDto>> getVehiclesByCityandCategory(@PathVariable("city") String city, @PathVariable Integer categoryId)
 		{
 			List<VehicleDto> vehicleDtos = this.vehicleService.getVehiclesByCityandCategory(city, categoryId);
-			return new ApiResponse<>(vehicleDtos, "vehicles found", true, 200);
+			List<Vehicle> vehicles = vehicleDtos.stream().map((vehicle)->this.modelMapper.map(vehicle, Vehicle.class)).collect(Collectors.toList());
+			for (Vehicle vehicle: vehicles) {
+
+				String avgRating = this.ratingService.getAvgRating(vehicle.getId());
+				vehicle.setV_ratings(avgRating);
+				
+				String noOfRatings = this.ratingService.getTotalNoOfRatings(vehicle.getId());
+				vehicle.setV_noOfRatings(noOfRatings);
+			}
+			
+			List<VehicleDto> allVehicleDtos = vehicles.stream().map((vehicle)->this.modelMapper.map(vehicle, VehicleDto.class)).collect(Collectors.toList());
+			
+			return new ApiResponse<>(allVehicleDtos, "vehicles found", true, 200);
 			
 		}
 		
